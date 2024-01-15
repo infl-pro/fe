@@ -1,6 +1,6 @@
 {
-  "name": "nextjs-wiki-book",
-  "version": "0.1.0",
+  "name": "shoppingMall-frontend",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -13,17 +13,27 @@
     "test": "jest"
   },
   "dependencies": {
+    "@next/mdx": "^14.0.3",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.0",
     "@mui/material": "^5.15.0",
+    "@types/react": "^18.2.39",
+    "autoprefixer": "^10.4.14",
+    "axios": "^0.27.2",
+    "env-cmd": "^10.1.0",
     "next": "14.0.4",
+    "next-mdx-remote": "^4.4.1",
+    "nextjs-progressbar": "^0.0.16",
     "react": "^18",
     "react-content-loader": "^6.2.1",
     "react-dom": "^18",
     "react-hook-form": "^7.49.2",
+    "sharp": "^0.32.4",
     "styled-components": "^6.1.1",
-    "swr": "^2.2.4"
+    "swr": "^2.2.4",
+    "typescript": "^5.2.2",
+    "yarn": "^1.22.19"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.18.6",
@@ -48,6 +58,7 @@
     "@types/styled-components": "^5.1.34",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
     "@typescript-eslint/parser": "^6.14.0",
+    "babel-plugin-transform-remove-console": "^6.9.4",
     "eslint": "^8.55.0",
     "eslint-config-next": "14.0.4",
     "eslint-config-prettier": "^9.1.0",
@@ -61,7 +72,7 @@
     "prettier": "^3.1.1",
     "storybook": "^7.6.4",
     "tsconfig-paths-webpack-plugin": "^4.1.0",
-    "typescript": "^5",
+    "typescript": "^5.2.2",
     "typescript-eslint": "^0.0.1-alpha.0"
   }
 }
