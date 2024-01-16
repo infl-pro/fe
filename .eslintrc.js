@@ -1,0 +1,41 @@
+/* eslint-env node */
+module.exports = {
+    extends: [
+        'eslint:recommended',
+        'plugin:prettier/recommended',
+        'plugin:react/recommended',
+        'plugin:react-hooks/recommended',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:import/recommended',
+        'plugin:import/typescript',
+        'plugin:storybook/recommended',
+    ],
+    parser: '@typescript-eslint/parser',
+    plugins: ['@typescript-eslint'],
+    root: true,
+    ignorePatterns: ['../../public/pdfjs'],
+    rules: {
+        'no-undef': 'off',
+        '@typescript-eslint/no-unused-vars': 'off',
+        '@typescript-eslint/ban-ts-comment': 'off',
+        'react/react-in-jsx-scope': 'off',
+        'import/no-unresolved': 'off',
+        'react/prop-types': 'off',
+        'import/order': 'off',
+        'react-hooks/rules-of-hooks': 'off',
+        'no-useless-escape': 'off',
+        'prettier/prettier': [
+            'error',
+            {
+                singleQuote: true,
+                semi: true,
+                useTabs: false,
+                tabWidth: 4,
+                trailingComma: 'all',
+                printWidth: 80,
+                arrowParens: 'avoid',
+                endOfLine: 'auto',
+            },
+        ],
+    },
+};
