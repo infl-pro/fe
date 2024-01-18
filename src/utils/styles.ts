@@ -36,7 +36,7 @@ export function toPropValue<T>(
     theme?: AppTheme,
 ) {
     if (prop === undefined) return undefined;
-
+    console.log(propKey, prop);
     if (isResponsivePropType(prop)) {
         const result = [];
         for (const responsiveKey in prop) {
@@ -71,6 +71,7 @@ export function toPropValue<T>(
         return result.join('\n');
     }
 
+    console.log(`${propKey}: ${toThemeValueIfNeeded(propKey, prop, theme)};`);
     return `${propKey}: ${toThemeValueIfNeeded(propKey, prop, theme)};`;
 }
 
