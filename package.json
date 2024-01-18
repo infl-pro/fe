@@ -12,11 +12,11 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@next/mdx": "^14.0.3",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.0",
     "@mui/material": "^5.15.0",
+    "@next/mdx": "^14.0.3",
     "@tanstack/react-query": "^4.36.1",
     "@tanstack/react-query-devtools": "4.36.1",
     "@types/react": "^18.2.39",
@@ -26,6 +26,7 @@
     "next": "14.0.4",
     "next-mdx-remote": "^4.4.1",
     "nextjs-progressbar": "^0.0.16",
+    "nookies": "^2.5.2",
     "react": "^18",
     "react-content-loader": "^6.2.1",
     "react-dom": "^18",
@@ -71,5 +72,6 @@
     "tsconfig-paths-webpack-plugin": "^4.1.0",
     "typescript": "^5.2.2",
     "typescript-eslint": "^0.0.1-alpha.0"
-  }
+  },
+  "packageManager": "yarn@4.0.2"
 }

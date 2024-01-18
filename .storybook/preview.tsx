@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Preview } from '@storybook/react';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
-import {theme} from '../src/themes'
+import { theme } from '../src/themes'
 import * as NextImage from 'next/image'
 
 export const GlobalStyle = createGlobalStyle`

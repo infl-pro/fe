@@ -21,16 +21,13 @@
     "baseUrl": "src",
     "types": [
       "node",
-      "jest",
-      "@testing-library/jest-dom",
       "@types/mdx"
     ],
     "plugins": [
       {
         "name": "next"
       }
-    ],
-    "strictNullChecks": true
+    ]
   },
   "include": [
     "next-env.d.ts",
