@@ -13,7 +13,6 @@ export default {
         },
         hasBorder: {
             control: { type: 'boolean' },
-            defaultValue: true,
             description: '보더 플래그',
             table: {
                 type: { summary: 'boolean' },
