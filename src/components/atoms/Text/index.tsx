@@ -32,6 +32,16 @@ export type TextProps = {
   display?: Responsive<string>
   border?: Responsive<string>
   overflow?: Responsive<string>
+  margin?: Responsive<string>
+  marginTop?: Responsive<string>
+  marginRight?: Responsive<string>
+  marginBottom?: Responsive<string>
+  marginLeft?: Responsive<string>
+  padding?: Responsive<string>
+  paddingTop?: Responsive<string>
+  paddingRight?: Responsive<string>
+  paddingBottom?: Responsive<string>
+  paddingLeft?: Responsive<string>
 }
 
 const variants = {
@@ -66,8 +76,6 @@ const Text = styled.span<TextProps>`
       const styles = []
       !fontSize &&
         styles.push(toPropValue('font-size', variants[variant].fontSize, theme))
-    //   !margin && 
-    //     styles.push(toPropValue('margin', variants[variant].margin, theme))
       return styles.join('\n')
     }
   }}
@@ -83,6 +91,16 @@ const Text = styled.span<TextProps>`
   ${(props) => toPropValue('display', props.display, props.theme)}
   ${(props) => toPropValue('border', props.border, props.theme)}
   ${(props) => toPropValue('overflow', props.overflow, props.theme)}
+  ${(props) => toPropValue('margin', props.margin, props.theme)}
+  ${(props) => toPropValue('margin-top', props.marginTop, props.theme)}
+  ${(props) => toPropValue('margin-left', props.marginLeft, props.theme)}
+  ${(props) => toPropValue('margin-bottom', props.marginBottom, props.theme)}
+  ${(props) => toPropValue('margin-right', props.marginRight, props.theme)}
+  ${(props) => toPropValue('padding', props.padding, props.theme)}
+  ${(props) => toPropValue('padding-top', props.paddingTop, props.theme)}
+  ${(props) => toPropValue('padding-left', props.paddingLeft, props.theme)}
+  ${(props) => toPropValue('padding-bottom', props.paddingBottom, props.theme)}
+  ${(props) => toPropValue('padding-right', props.paddingRight, props.theme)}
 `
 
 Text.defaultProps = {

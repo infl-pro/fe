@@ -3,8 +3,16 @@
 import Image from 'next/image';
 import styles from './page.module.css';
 import Text from 'components/atoms/Text';
+import { useSelector } from 'react-redux';
+import { RootState } from 'lib/store';
 
 export default function Home() {
+    const { isGlobalSpinnerOn } = useSelector(
+        (state: RootState) => state.globalSpinner,
+    );
+
+    console.log(isGlobalSpinnerOn);
+
     return (
         <main className={styles.main}>
             <div className={styles.description}>
