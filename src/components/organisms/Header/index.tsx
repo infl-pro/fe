@@ -11,10 +11,12 @@ import Text from 'components/atoms/Text';
 import Box from 'components/layout/Box';
 import Flex from 'components/layout/Flex';
 import BadgeIconButton from 'components/molecules/BadgeIconButton';
-import { useShoppingCartContext } from 'contexts/ShoppingCartContext';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import { RootState } from 'lib/store';
+import { useState } from 'react';
+import { GetServerSidePropsContext } from 'next';
+import { parseCookies } from 'nookies';
 
 // 헤더 루트
 const HeaderRoot = styled.header`
@@ -43,15 +45,18 @@ const Anchor = styled(Text)`
     }
 `;
 
+type HeaderProps = {
+    isLogined: boolean;
+};
+
 /**
  * 헤더
  */
-const Header = () => {
-    const { cart } = useShoppingCartContext();
-
-    const { isLogined, isLoading } = useSelector(
-        (state: RootState) => state.auth,
-    );
+const Header = ({ isLogined }: HeaderProps) => {
+    // const { isLogined, isLoading } = useSelector(
+    //     (state: RootState) => state.auth,
+    // );
+    // 임시 state
 
     return (
         <HeaderRoot>
@@ -75,74 +80,65 @@ const Header = () => {
                     </NavLink>
                     <NavLink>
                         <Box display={{ base: 'none', md: 'block' }}>
-                            <Link href="/search/clothes" passHref>
-                                <Anchor as="a">의류</Anchor>
+                            <Link href="/search/top" passHref>
+                                <Anchor as="a">상의</Anchor>
                             </Link>
                         </Box>
                     </NavLink>
                     <NavLink>
                         <Box display={{ base: 'none', md: 'block' }}>
-                            <Link href="/search/book" passHref>
-                                <Anchor as="a">책</Anchor>
+                            <Link href="/search/bottom" passHref>
+                                <Anchor as="a">하의</Anchor>
                             </Link>
                         </Box>
                     </NavLink>
                     <NavLink>
                         <Box display={{ base: 'none', md: 'block' }}>
-                            <Link href="/search/shoes" passHref>
-                                <Anchor as="a">신발</Anchor>
+                            <Link href="/search/outer" passHref>
+                                <Anchor as="a">아우터</Anchor>
+                            </Link>
+                        </Box>
+                    </NavLink>
+                    <NavLink>
+                        <Box display={{ base: 'none', md: 'block' }}>
+                            <Link href="/search/accessory" passHref>
+                                <Anchor as="a">액세서리</Anchor>
                             </Link>
                         </Box>
                     </NavLink>
                 </Nav>
                 <Nav as="nav" height="56px" alignItems="center">
-                    <NavLink>
-                        <Box display={{ base: 'block', md: 'none' }}>
-                            <Link href="/search" passHref>
-                                <Anchor as="a">
-                                    <SearchIcon />
-                                </Anchor>
-                            </Link>
-                        </Box>
-                    </NavLink>
-                    <NavLink>
-                        <Link href="/cart" passHref>
-                            <Anchor as="a">
-                                <BadgeIconButton
-                                    icon={<ShoppingCartIcon size={24} />}
-                                    size="24px"
-                                    badgeContent={
-                                        cart.length === 0
-                                            ? undefined
-                                            : cart.length
-                                    }
-                                    badgeBackgroundColor="#ed9f28"
-                                />
-                            </Anchor>
-                        </Link>
-                    </NavLink>
+                    {isLogined && (
+                        <>
+                            <NavLink>
+                                <Link href="/cart" passHref>
+                                    장바구니
+                                </Link>
+                            </NavLink>
+                            <NavLink>
+                                <Link href="/purchaseList" passHref>
+                                    주문내역
+                                </Link>
+                            </NavLink>
+                            <NavLink>
+                                <Link href="/sell">상품 등록</Link>
+                            </NavLink>
+                        </>
+                    )}
                     <NavLink>
                         {(() => {
                             // 인증된 상태라면 아이콘을 표시
                             if (isLogined) {
                                 return <Button>로그아웃</Button>;
-                            } else if (isLoading) {
-                                // 로드 중에는 스피너를 표시
-                                return <Spinner size={20} strokeWidth={2} />;
                             } else {
                                 // 로그인 하지 않은 경우에는 아이콘을 표시
                                 return (
                                     <Link href="/signin">
-                                        <Button>로그인</Button>;
+                                        <Button>로그인</Button>
                                     </Link>
                                 );
                             }
                         })()}
-                    </NavLink>
-                    <NavLink>
-                        <Link href="/sell">
-                            <Button as="a">등록</Button>
-                        </Link>
                     </NavLink>
                 </Nav>
             </Flex>
@@ -151,3 +147,14 @@ const Header = () => {
 };
 
 export default Header;
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+    const { req } = context;
+    const { token } = parseCookies({ req });
+
+    return {
+        props: {
+            isLogined: !!token,
+        },
+    };
+}

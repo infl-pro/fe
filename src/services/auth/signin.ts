@@ -1,4 +1,3 @@
-import { AxiosResponse } from 'axios';
 import Axios from '../../utils/Axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
@@ -33,8 +32,8 @@ export type SigninParams = {
 export const signin = createAsyncThunk(
     'auth/signin',
     async (params: SigninParams) => {
-        //response.data를 반환해야 할지 api 붙여보고 판단
-        return await Axios.post('/login', params);
+        const response = await Axios.post('/login', params);
+        return response.data;
     },
 );
 

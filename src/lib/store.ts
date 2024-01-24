@@ -2,10 +2,12 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import globalSpinnerSlice from './features/globalSpinner/globalSpinnerSlice';
 import { HYDRATE, createWrapper } from 'next-redux-wrapper';
 import authSlice from './features/auth/authSlice';
+import cartSlice from './features/cart/cartSlice';
 
 const rootReducer = combineReducers({
     globalSpinner: globalSpinnerSlice.reducer,
     auth: authSlice.reducer,
+    cart: cartSlice.reducer,
 });
 
 export const makeStore = () => {
