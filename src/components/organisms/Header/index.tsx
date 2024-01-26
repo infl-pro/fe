@@ -1,20 +1,9 @@
 import Link from 'next/link';
 import styled from 'styled-components';
 import Button from 'components/atoms/Button';
-import {
-    SearchIcon,
-    PersonIcon,
-    ShoppingCartIcon,
-} from 'components/atoms/IconButton';
-import Spinner from 'components/atoms/Spinner';
 import Text from 'components/atoms/Text';
 import Box from 'components/layout/Box';
 import Flex from 'components/layout/Flex';
-import BadgeIconButton from 'components/molecules/BadgeIconButton';
-import Image from 'next/image';
-import { useSelector } from 'react-redux';
-import { RootState } from 'lib/store';
-import { useState } from 'react';
 import { GetServerSidePropsContext } from 'next';
 import { parseCookies } from 'nookies';
 
@@ -67,41 +56,41 @@ const Header = ({ isLogined }: HeaderProps) => {
             >
                 <Nav as="nav" height="56px" alignItems="center">
                     <NavLink>
-                        <Link href="/" passHref>
+                        <Link href="/">
                             <Anchor as="a">LOGO</Anchor>
                         </Link>
                     </NavLink>
                     <NavLink>
-                        <Box display={{ base: 'none', md: 'block' }}>
-                            <Link href="/search" passHref>
+                        <Box display={{ base: 'block', md: 'none' }}>
+                            <Link href="/search">
                                 <Anchor as="a">모두</Anchor>
                             </Link>
                         </Box>
                     </NavLink>
                     <NavLink>
-                        <Box display={{ base: 'none', md: 'block' }}>
-                            <Link href="/search/top" passHref>
+                        <Box display={{ base: 'block', md: 'none' }}>
+                            <Link href="/search/top">
                                 <Anchor as="a">상의</Anchor>
                             </Link>
                         </Box>
                     </NavLink>
                     <NavLink>
-                        <Box display={{ base: 'none', md: 'block' }}>
-                            <Link href="/search/bottom" passHref>
+                        <Box display={{ base: 'block', md: 'none' }}>
+                            <Link href="/search/bottom">
                                 <Anchor as="a">하의</Anchor>
                             </Link>
                         </Box>
                     </NavLink>
                     <NavLink>
-                        <Box display={{ base: 'none', md: 'block' }}>
-                            <Link href="/search/outer" passHref>
+                        <Box display={{ base: 'block', md: 'none' }}>
+                            <Link href="/search/outer">
                                 <Anchor as="a">아우터</Anchor>
                             </Link>
                         </Box>
                     </NavLink>
                     <NavLink>
-                        <Box display={{ base: 'none', md: 'block' }}>
-                            <Link href="/search/accessory" passHref>
+                        <Box display={{ base: 'block', md: 'none' }}>
+                            <Link href="/search/accessory">
                                 <Anchor as="a">액세서리</Anchor>
                             </Link>
                         </Box>
@@ -111,14 +100,10 @@ const Header = ({ isLogined }: HeaderProps) => {
                     {isLogined && (
                         <>
                             <NavLink>
-                                <Link href="/cart" passHref>
-                                    장바구니
-                                </Link>
+                                <Link href="/cart">장바구니</Link>
                             </NavLink>
                             <NavLink>
-                                <Link href="/purchaseList" passHref>
-                                    주문내역
-                                </Link>
+                                <Link href="/purchaseList">주문내역</Link>
                             </NavLink>
                             <NavLink>
                                 <Link href="/sell">상품 등록</Link>

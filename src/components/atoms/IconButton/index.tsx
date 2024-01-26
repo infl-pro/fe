@@ -9,6 +9,8 @@ import {
     Close,
     GitHub,
     Person,
+    Edit,
+    AddPhotoAlternate,
 } from '@mui/icons-material';
 import SvgIcon from '@mui/material/SvgIcon';
 import styled from 'styled-components';
@@ -32,7 +34,6 @@ const IconWrapper = styled.div<IconWrapperProps>`
     background-color: ${({ backgroundColor }) => backgroundColor};
     cursor: ${({ cursor }) => cursor ?? 'pointer'};
     color: ${({ theme, color }) => {
-        console.log(color);
         if (color) {
             return theme.colors[color];
         }
@@ -96,3 +97,7 @@ export const GitHubIcon = withIconStyle(GitHub);
 export const PersonOutlineIcon = withIconStyle(PersonOutline);
 
 export const ShoppingCartIcon = withIconStyle(ShoppingCart);
+
+export const EditIcon = withIconStyle(Edit);
+
+export const AddPhotoAlternateIcon = withIconStyle(AddPhotoAlternate);

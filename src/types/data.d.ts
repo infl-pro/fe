@@ -3,7 +3,7 @@ export type LoginResponseBody = {
     refreshToken: string;
 };
 
-export type Category = 'shoes' | 'clothes';
+export type Category = 'TOP' | 'BOTTOM' | 'OUTER' | 'ACCESSORY';
 
 export type User = {
     username: string;

@@ -6,6 +6,7 @@ import Flex from 'components/layout/Flex';
 const DropdownRoot = styled.div`
     position: relative;
     height: 38px;
+    cursor: pointer;
 `;
 
 // 드롭다운 형태
@@ -19,7 +20,6 @@ const DropdownControl = styled.div<{ hasError?: boolean }>`
             : `1px solid ${theme.colors.border}`};
     border-radius: 5px;
     box-sizing: border-box;
-    cursor: default;
     outline: none;
     padding: 8px 52px 8px 12px;
 `;

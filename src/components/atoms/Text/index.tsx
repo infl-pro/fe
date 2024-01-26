@@ -32,16 +32,16 @@ export type TextProps = {
   display?: Responsive<string>
   border?: Responsive<string>
   overflow?: Responsive<string>
-  margin?: Responsive<string>
-  marginTop?: Responsive<string>
-  marginRight?: Responsive<string>
-  marginBottom?: Responsive<string>
-  marginLeft?: Responsive<string>
-  padding?: Responsive<string>
-  paddingTop?: Responsive<string>
-  paddingRight?: Responsive<string>
-  paddingBottom?: Responsive<string>
-  paddingLeft?: Responsive<string>
+  margin?: Responsive<Space>
+  marginTop?: Responsive<Space>
+  marginRight?: Responsive<Space>
+  marginBottom?: Responsive<Space>
+  marginLeft?: Responsive<Space>
+  padding?: Responsive<Space>
+  paddingTop?: Responsive<Space>
+  paddingRight?: Responsive<Space>
+  paddingBottom?: Responsive<Space>
+  paddingLeft?: Responsive<Space>
 }
 
 const variants = {
@@ -71,11 +71,13 @@ const variants = {
  */
 const Text = styled.span<TextProps>`
   ${({ variant, fontSize, theme }) => {
+   
     // 변형 스타일에 적용
     if (variant && variants[variant]) {
       const styles = []
       !fontSize &&
         styles.push(toPropValue('font-size', variants[variant].fontSize, theme))
+ 
       return styles.join('\n')
     }
   }}

@@ -69,7 +69,6 @@ export function toPropValue<T>(
 
         return result.join('\n');
     }
-
     return `${propKey}: ${toThemeValueIfNeeded(propKey, prop, theme)};`;
 }
 
