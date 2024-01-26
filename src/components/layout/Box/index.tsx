@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import styled from 'styled-components';
 import type { Responsive } from 'types/styles';
-import { toPropValue, Color } from 'utils/styles';
+import { toPropValue, Color, Space } from 'utils/styles';
 
 export type BoxProps = {
     color?: Responsive<Color>;
@@ -13,16 +13,16 @@ export type BoxProps = {
     display?: Responsive<string>;
     border?: Responsive<string>;
     overflow?: Responsive<string>;
-    margin?: Responsive<string>;
-    marginTop?: Responsive<string>;
-    marginRight?: Responsive<string>;
-    marginBottom?: Responsive<string>;
-    marginLeft?: Responsive<string>;
-    padding?: Responsive<string>;
-    paddingTop?: Responsive<string>;
-    paddingRight?: Responsive<string>;
-    paddingBottom?: Responsive<string>;
-    paddingLeft?: Responsive<string>;
+    margin?: Responsive<Space>;
+    marginTop?: Responsive<Space>;
+    marginRight?: Responsive<Space>;
+    marginBottom?: Responsive<Space>;
+    marginLeft?: Responsive<Space>;
+    padding?: Responsive<Space>;
+    paddingTop?: Responsive<Space>;
+    paddingRight?: Responsive<Space>;
+    paddingBottom?: Responsive<Space>;
+    paddingLeft?: Responsive<Space>;
     textAllign?: Responsive<string>;
     top?: Responsive<string>;
     left?: Responsive<string>;

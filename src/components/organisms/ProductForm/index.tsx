@@ -7,6 +7,8 @@ import Dropdown from 'components/molecules/Dropdown';
 import type { Category } from 'types';
 import ImageInput from 'components/molecules/ImageInput';
 import TextEditor from 'components/atoms/TextEditor';
+import DropzoneWithImages from 'components/molecules/DropzoneWithImages';
+import { useState } from 'react';
 
 type FileData = {
     id?: string;
@@ -17,8 +19,8 @@ type FileData = {
 };
 
 export type ProductFormData = {
-    thumbnailUrl: string;
-    image: FileData[];
+    thumbnail: string;
+    images: FileData[];
     name: string;
     description: string;
     category: Category;
@@ -37,6 +39,8 @@ interface ProductFormProps {
  * 상품 게시폼
  */
 const ProductForm = ({ onProductSave }: ProductFormProps) => {
+    const [images, setImages] = useState<FileData[]>([]);
+
     // React Hook Form 사용
     const {
         register,
@@ -46,6 +50,10 @@ const ProductForm = ({ onProductSave }: ProductFormProps) => {
     } = useForm<ProductFormData>();
     const onSubmit = (data: ProductFormData) => {
         onProductSave && onProductSave(data);
+    };
+
+    const handleChangeImages = (newImages: FileData[]) => {
+        setImages([...images, ...newImages]);
     };
 
     return (
@@ -59,16 +67,16 @@ const ProductForm = ({ onProductSave }: ProductFormProps) => {
                 {/* 상품 이미지 입력 */}
                 <Controller
                     control={control}
-                    name="image"
+                    name="thumbnail"
                     rules={{ required: true }}
                     render={({
                         field: { onChange, value },
                         fieldState: { error },
                     }) => <ImageInput />}
                 />
-                {errors.image && (
+                {errors.thumbnail && (
                     <Text color="danger" variant="small" paddingLeft="8px">
-                        Product image is required
+                        대표 이미지는 필수입니다
                     </Text>
                 )}
             </Box>
@@ -97,7 +105,17 @@ const ProductForm = ({ onProductSave }: ProductFormProps) => {
                         </Text>
                     )}
                 </Box>
-
+                <Box marginBottom="8px">
+                    <Text as="label" variant="medium">
+                        상세 이미지
+                    </Text>
+                    {/* 상세 이미지 입력 */}
+                    <DropzoneWithImages
+                        images={images}
+                        onChange={handleChangeImages}
+                        maximumNumber={5}
+                    />
+                </Box>
                 <Box marginBottom="8px">
                     <Text as="label" variant="medium">
                         설명
