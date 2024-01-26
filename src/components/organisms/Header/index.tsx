@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import styled from 'styled-components';
 import Button from 'components/atoms/Button';
@@ -10,14 +11,14 @@ import { parseCookies } from 'nookies';
 // 헤더 루트
 const HeaderRoot = styled.header`
     height: 88px;
-    padding: ${({ theme }) => theme.space[2]} 0px;
+    padding: 16px 0px;
     border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 `;
 
 // 내비게이션
 const Nav = styled(Flex)`
     & > span:not(:first-child) {
-        margin-left: ${({ theme }) => theme.space[2]};
+        margin-left: 16px;
     }
 `;
 

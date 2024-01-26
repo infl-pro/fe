@@ -5,12 +5,13 @@ import Header from 'components/organisms/Header';
 
 interface LayoutProps {
     children: React.ReactNode;
+    isLogined: boolean;
 }
 
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children, isLogined }: LayoutProps) => {
     return (
         <>
-            <Header />
+            <Header isLogined={isLogined} />
             <main>{children}</main>
             <Separator />
             <Box padding={3}>
