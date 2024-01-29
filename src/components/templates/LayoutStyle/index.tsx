@@ -14,7 +14,7 @@ const Layout = ({ children, isLogined }: LayoutProps) => {
             <Header isLogined={isLogined} />
             <main>{children}</main>
             <Separator />
-            <Box padding={3}>
+            <Box>
                 <Footer />
             </Box>
         </>

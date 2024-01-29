@@ -7,7 +7,7 @@ import LayoutStyle from 'components/templates/LayoutStyle';
 import SigninFormContainer from 'containers/SigninFormContainer';
 import { useCookies } from 'next-client-cookies';
 
-const SigninPage: NextPage = async () => {
+const SigninPage: NextPage = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -24,6 +24,7 @@ const SigninPage: NextPage = async () => {
         }
     };
 
+    console.log('asdfadfa');
     return (
         <LayoutStyle isLogined={false}>
             <Flex

@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import styled from 'styled-components';
 import { GitHubIcon } from 'components/atoms/IconButton';
 import Text from 'components/atoms/Text';
@@ -18,7 +17,7 @@ const Anchor = styled(Text)`
 const Footer = () => {
     return (
         <footer>
-            <Flex backgroundColor={'gray'} padding={1}>
+            <Flex backgroundColor={'gray'} padding={2}>
                 <Box
                     minWidth={{ base: '100%', md: '120px' }}
                     textAllign={'center'}
