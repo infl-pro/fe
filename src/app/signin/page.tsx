@@ -28,8 +28,8 @@ const SigninPage: NextPage = () => {
     return (
         <LayoutStyle isLogined={false}>
             <Flex
-                paddingTop={2}
-                paddingBottom={2}
+                paddingTop={4}
+                paddingBottom={3}
                 paddingLeft={{ md: 2 }}
                 paddingRight={{ md: 2 }}
                 justifyContent="center"
