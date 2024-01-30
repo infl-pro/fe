@@ -29,10 +29,7 @@ export default function StyledComponentsRegistry({
 
     return (
         <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>
-            <ThemeProvider theme={theme}>
-                <GlobalStyle />
-                {children}
-            </ThemeProvider>
+            {children}
         </StyleSheetManager>
     );
 }
