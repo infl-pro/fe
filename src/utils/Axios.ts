@@ -1,9 +1,9 @@
 import axios from 'axios';
 import Router from 'next/router';
 import { destroyCookie, parseCookies, setCookie } from 'nookies';
-
+console.log(process.env.API_BASE_URL);
 const Axios = axios.create({
-    baseURL: process.env.API_BASE_URL,
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL,
     timeout: 180000,
     withCredentials: true,
 });

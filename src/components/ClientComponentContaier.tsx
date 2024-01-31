@@ -8,6 +8,10 @@ import {
 } from 'styled-components';
 import { GlobalStyle } from 'styles/GlobalStyle';
 import { theme } from 'themes/index';
+import GlobalSpinner from './organisms/GlobalSpinner';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClinet = new QueryClient();
 
 const ClientComponentContaier = ({
     children,
@@ -15,12 +19,15 @@ const ClientComponentContaier = ({
     children: React.ReactNode;
 }) => {
     return (
-        <StyledComponentsRegistry>
-            <ThemeProvider theme={theme}>
-                <GlobalStyle />
-                {children}
-            </ThemeProvider>
-        </StyledComponentsRegistry>
+        <QueryClientProvider client={queryClinet}>
+            <StyledComponentsRegistry>
+                <ThemeProvider theme={theme}>
+                    <GlobalStyle />
+                    <GlobalSpinner />
+                    {children}
+                </ThemeProvider>
+            </StyledComponentsRegistry>
+        </QueryClientProvider>
     );
 };
 

@@ -14,12 +14,17 @@ export type SigninParams = {
     password: string;
 };
 
+type SigninReturnedData = {
+    accessToken: string;
+    tokenType: string;
+};
+
 /**
  * 인증 API(로그인)
  * @param params 파라미터
- * @returns 로그인 사용자
+ * @returns token 객체
  */
-const signin = async (params: SigninParams): Promise<AxiosResponse> => {
+const signin = async (params: SigninParams): Promise<SigninReturnedData> => {
     const response = await Axios.post('/login', params);
     return response.data;
 };

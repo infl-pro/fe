@@ -21,9 +21,9 @@ const SigninFormContainer = ({ onSignin }: SigninFormContainerProps) => {
     const handleSignin = async (username: string, password: string) => {
         try {
             dispatch(setGlobalSpinnerAction(true));
-            const { data } = await signin({ username, password });
+            const { accessToken } = await signin({ username, password });
 
-            setCookie(null, 'token', data.accessToken, {
+            setCookie(null, 'token', accessToken, {
                 maxAge: 30 * 24 * 60 * 60,
                 path: '/', // 쿠키 경로
                 secure: true,
