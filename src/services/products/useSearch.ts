@@ -1,28 +1,11 @@
 import { Category } from 'types';
 import Axios from 'utils/Axios';
 import { useQuery } from '@tanstack/react-query';
-
-export type GetProductListParams = {
-    page?: number;
-    searchCategory?: Category;
-    searchValue?: string;
-};
-
-type Product = {
-    productId: number;
-    productName: string;
-    productPrice: number;
-    productThumbnail: string;
-    brandName: string;
-};
-
-type GetProductListReturnedData = {
-    content: Product[];
-    totalPages: number;
-    totalElements: number;
-    size: number;
-    number: number;
-};
+import getProductList, {
+    GetProductListParams,
+    GetProductListReturned,
+    Product,
+} from './getProductList';
 
 // 위 타입과 동일한 부분 합치기
 export type UseSearchProps = {
@@ -30,15 +13,6 @@ export type UseSearchProps = {
     searchCategory?: Category;
     searchValue?: string;
     initial?: Product[];
-};
-
-const getProductList = async (
-    params?: GetProductListParams,
-): Promise<GetProductListReturnedData> => {
-    const requestOptions = params ? { params } : {};
-
-    const response = await Axios.get('/productList', requestOptions);
-    return response.data;
 };
 
 const useSearch = ({
@@ -56,9 +30,10 @@ const useSearch = ({
     console.log(params);
 
     const { data, isLoading, isError } = useQuery<
-        GetProductListReturnedData,
+        // ??
+        GetProductListReturned,
         Error,
-        GetProductListParams
+        GetProductListReturned
     >({
         queryKey: ['productList', params],
         queryFn: ({ queryKey }) => {
@@ -77,10 +52,12 @@ const useSearch = ({
     });
 
     return {
-        products: data ?? initial ?? [],
+        products: data.data.content ?? initial ?? [],
         isLoading,
         isError,
     };
 };
 
 export default useSearch;
+
+// const { products } = useSearch({});

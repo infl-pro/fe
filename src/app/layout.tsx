@@ -20,11 +20,7 @@ export default function RootLayout({
     return (
         <html lang="ko">
             <body className={inter.className}>
-                <StoreProvider>
-                    <ClientComponentContaier>
-                        {children}
-                    </ClientComponentContaier>
-                </StoreProvider>
+                <StoreProvider>{children}</StoreProvider>
             </body>
         </html>
     );

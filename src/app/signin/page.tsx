@@ -6,6 +6,7 @@ import Flex from 'components/layout/Flex';
 import LayoutStyle from 'components/templates/LayoutStyle';
 import SigninFormContainer from 'containers/SigninFormContainer';
 import { useCookies } from 'next-client-cookies';
+import ClientComponentContaier from 'components/ClientComponentContaier';
 
 const SigninPage: NextPage = () => {
     const router = useRouter();
@@ -26,32 +27,34 @@ const SigninPage: NextPage = () => {
 
     console.log('asdfadfa');
     return (
-        <LayoutStyle isLogined={false}>
-            <Flex
-                paddingTop={4}
-                paddingBottom={3}
-                paddingLeft={{ md: 2 }}
-                paddingRight={{ md: 2 }}
-                justifyContent="center"
-            >
+        <ClientComponentContaier>
+            <LayoutStyle isLogined={false}>
                 <Flex
-                    width="400px"
-                    flexDirection="column"
+                    paddingTop={4}
+                    paddingBottom={3}
+                    paddingLeft={{ md: 2 }}
+                    paddingRight={{ md: 2 }}
                     justifyContent="center"
-                    alignItems="center"
                 >
-                    <Box marginBottom={2}>LOGO</Box>
-                    <Box width="100%">
-                        {/*
+                    <Flex
+                        width="400px"
+                        flexDirection="column"
+                        justifyContent="center"
+                        alignItems="center"
+                    >
+                        <Box marginBottom={2}>LOGO</Box>
+                        <Box width="100%">
+                            {/*
                             로그인폼 컨테이너
                             SigninForm의 사용자명/비밀번호로부터 인증 API를 호출하고,
                             onSignin 콜백이 호출된다
                         */}
-                        <SigninFormContainer onSignin={handleSignin} />
-                    </Box>
+                            <SigninFormContainer onSignin={handleSignin} />
+                        </Box>
+                    </Flex>
                 </Flex>
-            </Flex>
-        </LayoutStyle>
+            </LayoutStyle>
+        </ClientComponentContaier>
     );
 };
 
