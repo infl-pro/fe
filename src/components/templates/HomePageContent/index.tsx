@@ -10,10 +10,7 @@ import {
 } from 'services/products/getProductList';
 import ClientComponentContaier from 'components/ClientComponentContaier';
 import Input from 'components/atoms/Input';
-import { IconButton } from '@mui/material';
 import { SearchIcon } from 'components/atoms/IconButton';
-import { useState } from 'react';
-import useSearch from 'services/products/useSearch';
 
 const HomePageContent = ({ data }: { data: GetProductListReturnedData }) => {
     const onClickSearchIcon = () => {};

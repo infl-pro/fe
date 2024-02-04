@@ -12,14 +12,14 @@ export type UseSearchProps = {
     page?: number;
     searchCategory?: Category;
     searchValue?: string;
-    initial?: Product[];
+    // initial?: Product[];
 };
 
 const useSearch = ({
     page,
     searchCategory,
     searchValue,
-    initial,
+    // initial,
 }: UseSearchProps) => {
     const params: GetProductListParams = {};
 
@@ -39,7 +39,7 @@ const useSearch = ({
         queryFn: ({ queryKey }) => {
             const params = queryKey[1];
 
-            console.log(params);
+            console.log('!!!!!!!!!!!!!!!!!', params);
             if (Object.keys(params).length !== 0) {
                 console.log('aaa');
                 return getProductList(params);
@@ -51,13 +51,12 @@ const useSearch = ({
         staleTime: Infinity,
     });
 
+    console.log(data);
     return {
-        products: data.data.content ?? initial ?? [],
+        data: data?.data,
         isLoading,
         isError,
     };
 };
 
 export default useSearch;
-
-// const { products } = useSearch({});

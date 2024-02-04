@@ -12,7 +12,7 @@ export type Product = {
     productName: string;
     productPrice: number;
     productThumbnail: string;
-    brandName: string;
+    sellerName: string;
 };
 
 export type GetProductListReturnedData = {
@@ -37,7 +37,7 @@ const getProductList = async (
 
     const response = await Axios.get('/productList', requestOptions);
 
-    console.log('~~~~~~~~~~~~~~~~~~', response.data.data);
+    console.log('~~~~~$$$$$$$$$$~~~~~', response.data.data);
     return response.data;
 };
 
