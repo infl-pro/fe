@@ -1,34 +1,32 @@
 'use client';
-import Link from 'next/link';
 import Text from 'components/atoms/Text';
 import Box from 'components/layout/Box';
 import Flex from 'components/layout/Flex';
 import ProductCard from 'components/organisms/ProductCard';
-// import Layout from 'components/templates/Layout';
-// import getAllProducts from 'services/products/get-all-products';
-// import { ApiContext, Product } from 'types';
-import useSearch from 'services/products/useSearch';
 import Layout from '../LayoutStyle';
 import {
     GetProductListReturnedData,
     Product,
 } from 'services/products/getProductList';
 import ClientComponentContaier from 'components/ClientComponentContaier';
+import Input from 'components/atoms/Input';
+import { IconButton } from '@mui/material';
+import { SearchIcon } from 'components/atoms/IconButton';
+import { useState } from 'react';
+import useSearch from 'services/products/useSearch';
 
 const HomePageContent = ({ data }: { data: GetProductListReturnedData }) => {
-    console.log(data);
-    const { content, pageNumber, totalElements, totalPage } = data;
+    const onClickSearchIcon = () => {};
 
     // 상품 카드 캐러셀을 렌더링
     const renderProductCardCarousel = (products: Product[]) => {
-        // thumnail 안들어오는듯
         return (
             <>
-                {products.map((p: Product, i: number) => (
+                {products?.map((p: Product, i: number) => (
                     <ProductCard
                         title={p.productName}
                         price={p.productPrice}
-                        imageUrl={p.productThumbnail}
+                        imageUrl={`http://52.79.222.161:8080${p.productThumbnail}`}
                         key={i}
                     />
                 ))}
@@ -39,17 +37,43 @@ const HomePageContent = ({ data }: { data: GetProductListReturnedData }) => {
     return (
         <ClientComponentContaier>
             <Layout isLogined={false}>
-                <Flex paddingBottom={2} justifyContent="center">
+                <Flex
+                    paddingBottom={2}
+                    alignItems="center"
+                    flexDirection={'column'}
+                >
                     <Box
                         paddingLeft={{ base: 2, md: 0 }}
                         paddingRight={{ base: 2, md: 0 }}
-                        width={{ base: '100%', md: '1040px' }}
+                        width={{ base: '1070px', md: '1040px' }}
                     >
-                        <Box marginBottom={3}>
-                            {/* <Text as="h2" variant="large">
-                                의류
-                            </Text> */}
-                            {renderProductCardCarousel(content)}
+                        <Box marginBottom={3} marginTop={1}>
+                            <Flex
+                                width="100%"
+                                justifyContent={'right'}
+                                gap={'4px'}
+                            >
+                                <Box width={'290px'}>
+                                    <Input />
+                                </Box>
+                                <Flex alignItems={'center'}>
+                                    <SearchIcon
+                                        size={28}
+                                        onClick={onClickSearchIcon}
+                                    />
+                                </Flex>
+                            </Flex>
+                            <Text as="h2" variant="large" marginLeft={'140px'}>
+                                모두
+                            </Text>
+                            <Flex
+                                flexWrap={'wrap'}
+                                justifyContent={'center'}
+                                gap={'29px'}
+                                marginTop={1}
+                            >
+                                {renderProductCardCarousel(data.content ?? [])}
+                            </Flex>
                         </Box>
                     </Box>
                 </Flex>

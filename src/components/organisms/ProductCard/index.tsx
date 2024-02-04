@@ -29,6 +29,7 @@ interface ProductCardProps {
 // 상품 카드 컨테이너
 const ProductCardContainer = styled.div`
     position: relative;
+    cursor: pointer;
 `;
 
 // 상품 카드 이미지 컨테이너
@@ -65,6 +66,7 @@ const ProductCard = ({
         }
     })();
 
+    console.log(imageUrl);
     return (
         <ProductCardContainer>
             {variant !== 'small' && (
@@ -72,7 +74,7 @@ const ProductCard = ({
                     <Box>
                         <Text
                             as="h2"
-                            fontSize={{ base: 'mediumLarge', md: 'small' }}
+                            fontSize={{ base: 'medium', md: 'small' }}
                             lineHeight={{ base: '48px', md: '32px' }}
                             backgroundColor="white"
                             margin={0}
@@ -106,7 +108,7 @@ const ProductCard = ({
                         height={imgSize ?? 240}
                         containerWidth={size}
                         containerHeight={size}
-                        style={{ objectFit: 'cover' }}
+                        style={{ objectFit: 'contain' }}
                         placeholder="blur"
                         blurDataURL={blurDataUrl}
                     />
@@ -118,7 +120,7 @@ const ProductCard = ({
                         height={imgSize ?? 240}
                         containerWidth={size}
                         containerHeight={size}
-                        style={{ objectFit: 'cover' }}
+                        style={{ objectFit: 'contain' }}
                     />
                 )}
             </ProductCardImageContainer>

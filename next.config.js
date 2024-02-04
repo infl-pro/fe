@@ -16,6 +16,16 @@ const nextConfig = {
         return compilerConfig;
     })(),
     pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'http',
+                hostname: '52.79.222.161',
+                port: '8080',
+                pathname: '**',
+            },
+        ],
+    },
 };
 
 module.exports = nextConfig;

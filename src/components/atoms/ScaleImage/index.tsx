@@ -16,6 +16,7 @@ const ScaleEffectImageContainer = styled.div<{
     overflow: hidden;
     ${({ width, theme }) => toPropValue('width', width, theme)}
     ${({ height, theme }) => toPropValue('height', height, theme)}
+    background-color: ${({ theme }) => theme.colors.gray};
 `;
 
 const ScaleEffectImage = styled(Image)`

@@ -6,6 +6,7 @@ import Box from 'components/layout/Box';
 import Flex from 'components/layout/Flex';
 import { GetServerSidePropsContext } from 'next';
 import { parseCookies } from 'nookies';
+import { Category } from 'types';
 
 // 헤더 루트
 const HeaderRoot = styled.header`
@@ -38,6 +39,13 @@ type HeaderProps = {
     isLogined: boolean;
 };
 
+const categoryNameDict: Record<Category, string> = {
+    TOP: '상의',
+    BOTTOM: '하의',
+    OUTER: '아우터',
+    ACCESSORY: '액세서리',
+};
+
 /**
  * 헤더
  */
@@ -62,39 +70,31 @@ const Header = ({ isLogined }: HeaderProps) => {
                     </NavLink>
                     <NavLink>
                         <Box display={{ base: 'block', md: 'none' }}>
-                            <Link href="/search">
+                            <Link href="/">
                                 <Anchor as="a">모두</Anchor>
                             </Link>
                         </Box>
                     </NavLink>
-                    <NavLink>
-                        <Box display={{ base: 'block', md: 'none' }}>
-                            <Link href="/search/top">
-                                <Anchor as="a">상의</Anchor>
-                            </Link>
-                        </Box>
-                    </NavLink>
-                    <NavLink>
-                        <Box display={{ base: 'block', md: 'none' }}>
-                            <Link href="/search/bottom">
-                                <Anchor as="a">하의</Anchor>
-                            </Link>
-                        </Box>
-                    </NavLink>
-                    <NavLink>
-                        <Box display={{ base: 'block', md: 'none' }}>
-                            <Link href="/search/outer">
-                                <Anchor as="a">아우터</Anchor>
-                            </Link>
-                        </Box>
-                    </NavLink>
-                    <NavLink>
-                        <Box display={{ base: 'block', md: 'none' }}>
-                            <Link href="/search/accessory">
-                                <Anchor as="a">액세서리</Anchor>
-                            </Link>
-                        </Box>
-                    </NavLink>
+                    {/* 카테고리 링크 */}
+                    {Object.keys(categoryNameDict).map(
+                        (category: string, i: number) => (
+                            <NavLink key={i}>
+                                <Box display={{ base: 'block', md: 'none' }}>
+                                    <Link
+                                        href={`/category/${category.toLowerCase()}`}
+                                    >
+                                        <Anchor as="a">
+                                            {
+                                                categoryNameDict[
+                                                    category as Category
+                                                ]
+                                            }
+                                        </Anchor>
+                                    </Link>
+                                </Box>
+                            </NavLink>
+                        ),
+                    )}
                 </Nav>
                 <Nav as="nav" height="56px" alignItems="center">
                     {isLogined && (
