@@ -12,6 +12,7 @@ const SignupPage = () => {
     const router = useRouter();
 
     const handleSignup = async (err?: Error) => {
+        console.log(err);
         if (!err) {
             alert('회원가입에 성공하였습니다.');
             router.push('/');

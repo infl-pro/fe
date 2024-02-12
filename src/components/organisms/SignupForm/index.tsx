@@ -6,6 +6,7 @@ import Box from 'components/layout/Box';
 import { SignupParams } from 'services/auth/signup';
 import Flex from 'components/layout/Flex';
 import Axios from 'utils/Axios';
+import { useState } from 'react';
 
 interface SignupFormProps {
     /**
@@ -24,16 +25,18 @@ interface SignupFormProps {
  * 회원가입폼
  */
 const SignupForm = ({ onSignup }: SignupFormProps) => {
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
     // React Hook Form 사용
     const {
         register,
         handleSubmit,
         watch,
         formState: { errors },
-    } = useForm<SignupParams>();
+    } = useForm<SignupParams & { authNumber: string }>();
     const onSubmit = (data: SignupParams) => {
         const { username, name, password, confirmPassword, email } = data;
-
+        console.log('onsubmit');
         onSignup && onSignup(username, name, password, confirmPassword, email);
     };
 
@@ -43,7 +46,7 @@ const SignupForm = ({ onSignup }: SignupFormProps) => {
             const response = await Axios.post('/account/validateUsername', {
                 username,
             });
-            console.log('중복 검사', response);
+            alert('사용할 수 있는 아이디입니다.');
         } catch (e) {
             // !에러객체가 안 나오고 Request failed with status code 400 나옴
             console.log('중복검사에러', e);
@@ -100,8 +103,16 @@ const SignupForm = ({ onSignup }: SignupFormProps) => {
         },
     });
 
+    const onClickJoin = () => {
+        console.log('onClickJoin');
+        // if (!isAuthenticated) {
+        //     return;
+        // }
+        handleSubmit(onSubmit);
+    };
+
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <>
             <Box marginBottom="16px">
                 <Flex gap="4px">
                     {/* 회원가입 아이디 입력 */}
@@ -205,9 +216,11 @@ const SignupForm = ({ onSignup }: SignupFormProps) => {
                 <Flex gap="4px">
                     {/* 인증번호 입력 */}
                     <Input
+                        {...register('authNumber', { required: true })}
                         name="authNumber"
                         type="string"
                         placeholder="인증번호"
+                        hasError={!!errors.authNumber}
                     />
 
                     <Button
@@ -221,16 +234,16 @@ const SignupForm = ({ onSignup }: SignupFormProps) => {
                         인증
                     </Button>
                 </Flex>
-                {errors.email && (
+                {errors.authNumber && (
                     <Text color="danger" variant="small" paddingLeft="8px">
-                        이메일 인증이 필요합니다
+                        인증번호 입력이 필요합니다
                     </Text>
                 )}
             </Box>
-            <Button width="100%" type="submit">
+            <Button width="100%" onClick={onClickJoin}>
                 회원가입
             </Button>
-        </form>
+        </>
     );
 };
 

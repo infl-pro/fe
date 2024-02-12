@@ -1,4 +1,6 @@
 import Axios from 'utils/Axios';
+import { GetProductListReturned } from './getProductList';
+import { Product } from 'types';
 
 export type GetProductParams = {
     /**
@@ -13,10 +15,8 @@ export type GetProductParams = {
  * @returns 상품
  */
 
-const getProduct = async (
-    params: GetProductParams,
-): Promise<GetProductListReturned> => {
-    const response = await Axios.get('/product', { params });
+const getProduct = async (id: number): Promise<Product> => {
+    const response = await Axios.get(`/product/${id}`);
 
     console.log('getProduct', response);
     return response.data;

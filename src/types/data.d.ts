@@ -23,4 +23,7 @@ export type Product = {
     brandName: string;
     category: string;
     isPurchased: boolean;
+    sellerName: string;
+    isPurchased: boolean;
+    isSeller: boolean;
 };

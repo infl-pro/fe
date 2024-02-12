@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react';
 import Pagination from '@mui/material/Pagination';
 import styled from 'styled-components';
 import OrderMenuItem from 'components/atoms/OrderMenuItem';
+import Link from 'next/link';
 
 const HomePageContent = ({ data }: { data: GetProductListReturnedData }) => {
     const [input, setInput] = useState('');
@@ -61,12 +62,13 @@ const HomePageContent = ({ data }: { data: GetProductListReturnedData }) => {
         return (
             <>
                 {products?.map((p: Product, i: number) => (
-                    <ProductCard
-                        title={p.productName}
-                        price={p.productPrice}
-                        imageUrl={`http://52.79.222.161:8080${p.productThumbnail}`}
-                        key={i}
-                    />
+                    <Link href={`/products/${p.productId}`} key={i}>
+                        <ProductCard
+                            title={p.productName}
+                            price={p.productPrice}
+                            imageUrl={`http://52.79.222.161:8080${p.productThumbnail}`}
+                        />
+                    </Link>
                 ))}
             </>
         );
