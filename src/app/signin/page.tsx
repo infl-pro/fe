@@ -8,6 +8,8 @@ import SigninFormContainer from 'containers/SigninFormContainer';
 import { useCookies } from 'next-client-cookies';
 import ClientComponentContaier from 'components/ClientComponentContaier';
 import useSearch from 'services/products/useSearch';
+import { useEffect } from 'react';
+import Axios from 'utils/Axios';
 
 const SigninPage: NextPage = () => {
     const router = useRouter();

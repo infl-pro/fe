@@ -4,36 +4,33 @@ import { useQuery } from '@tanstack/react-query';
 import getProductList, {
     GetProductListParams,
     GetProductListReturned,
+    GetProductListReturnedData,
     Product,
 } from './getProductList';
-
-// 위 타입과 동일한 부분 합치기
-export type UseSearchProps = {
-    page?: number;
-    searchCategory?: Category;
-    searchValue?: string;
-    // initial?: Product[];
-};
 
 const useSearch = ({
     page,
     searchCategory,
     searchValue,
+    option,
+    order,
     // initial,
-}: UseSearchProps) => {
+}: GetProductListParams) => {
     const params: GetProductListParams = {};
 
     page && (params.page = page);
     searchCategory && (params.searchCategory = searchCategory);
     searchValue && (params.searchValue = searchValue);
+    option && (params.option = option);
+    order && (params.order = order);
 
     console.log(params);
 
     const { data, isLoading, isError } = useQuery<
         // ??
-        GetProductListReturned,
+        GetProductListReturnedData,
         Error,
-        GetProductListReturned
+        GetProductListReturnedData
     >({
         queryKey: ['productList', params],
         queryFn: ({ queryKey }) => {
@@ -53,7 +50,7 @@ const useSearch = ({
 
     console.log(data);
     return {
-        data: data?.data,
+        data: data,
         isLoading,
         isError,
     };

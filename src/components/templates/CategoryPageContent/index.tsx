@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Text from 'components/atoms/Text';
 import Box from 'components/layout/Box';
 import Flex from 'components/layout/Flex';
@@ -7,34 +7,58 @@ import Input from 'components/atoms/Input';
 import { SearchIcon } from 'components/atoms/IconButton';
 import {
     GetProductListReturnedData,
+    OptionType,
+    OrderType,
     Product,
 } from 'services/products/getProductList';
 import ProductCard from 'components/organisms/ProductCard';
 import useSearch from 'services/products/useSearch';
+import Link from 'next/link';
+import { Pagination } from '@mui/material';
+import OrderMenuItem from 'components/atoms/OrderMenuItem';
 
-const index = () => {
+const index = ({ searchCategory }) => {
+    const [input, setInput] = useState('');
+    const [keyword, setKeyword] = useState('');
+    const [page, setPage] = useState(0);
+    const [option, setOption] = useState<OptionType>('id');
+    const [order, setOrder] = useState<OrderType>('desc');
+
     const { data, isLoading, isError } = useSearch({
-        searchCategory: 'TOP',
+        searchCategory,
+        searchValue: keyword,
+        page,
+        option,
+        order,
     });
 
-    const onClickSearchIcon = () => {};
+    const onClickSearchIcon = () => {
+        setKeyword(input);
+    };
+
+    const onClickOrderMenu = (option, order) => {
+        setOption(option);
+        setOrder(order);
+    };
 
     // 상품 카드 캐러셀을 렌더링 // 이름 바꾸기
     const renderProductCardCarousel = (products: Product[]) => {
         return (
             <>
                 {products?.map((p: Product, i: number) => (
-                    <ProductCard
-                        title={p.productName}
-                        price={p.productPrice}
-                        imageUrl={`http://52.79.222.161:8080${p.productThumbnail}`}
-                        key={i}
-                    />
+                    <Link href={`/products/${p.productId}`} key={i}>
+                        <ProductCard
+                            title={p.productName}
+                            price={p.productPrice}
+                            imageUrl={`http://52.79.222.161:8080${p.productThumbnail}`}
+                        />
+                    </Link>
                 ))}
             </>
         );
     };
 
+    console.log('categoryData', data);
     return (
         <Layout isLogined={false}>
             <Flex
@@ -50,7 +74,10 @@ const index = () => {
                     <Box marginBottom={3} marginTop={1}>
                         <Flex width="100%" justifyContent={'right'} gap={'4px'}>
                             <Box width={'290px'}>
-                                <Input />
+                                <Input
+                                    value={input}
+                                    onChange={e => setInput(e.target.value)}
+                                />
                             </Box>
                             <Flex alignItems={'center'}>
                                 <SearchIcon
@@ -59,9 +86,34 @@ const index = () => {
                                 />
                             </Flex>
                         </Flex>
-                        <Text as="h2" variant="large" marginLeft={'140px'}>
-                            모두
-                        </Text>
+                        <Flex justifyContent={'space-between'} marginTop={2}>
+                            <Text as="h2" variant="large" marginLeft={'140px'}>
+                                {searchCategory.toUpperCase()}
+                            </Text>
+                            <Flex gap={'15px'}>
+                                <OrderMenuItem
+                                    onClick={() =>
+                                        onClickOrderMenu('id', 'desc')
+                                    }
+                                >
+                                    신상품순
+                                </OrderMenuItem>
+                                <OrderMenuItem
+                                    onClick={() =>
+                                        onClickOrderMenu('price', 'asc')
+                                    }
+                                >
+                                    낮은 가격순
+                                </OrderMenuItem>
+                                <OrderMenuItem
+                                    onClick={() =>
+                                        onClickOrderMenu('price', 'desc')
+                                    }
+                                >
+                                    높은 가격순
+                                </OrderMenuItem>
+                            </Flex>
+                        </Flex>
                         <Flex
                             flexWrap={'wrap'}
                             justifyContent={'center'}
@@ -72,6 +124,10 @@ const index = () => {
                         </Flex>
                     </Box>
                 </Box>
+                <Pagination
+                    count={!isLoading && data.totalPage}
+                    onChange={(e, page) => setPage(Number(page))}
+                />
             </Flex>
         </Layout>
     );
