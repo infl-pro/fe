@@ -16,6 +16,7 @@ import useSearch from 'services/products/useSearch';
 import Link from 'next/link';
 import { Pagination } from '@mui/material';
 import OrderMenuItem from 'components/atoms/OrderMenuItem';
+import { parseCookies } from 'nookies';
 
 const index = ({ searchCategory }) => {
     const [input, setInput] = useState('');
@@ -31,6 +32,8 @@ const index = ({ searchCategory }) => {
         option,
         order,
     });
+
+    const { token } = parseCookies();
 
     const onClickSearchIcon = () => {
         setKeyword(input);
@@ -60,7 +63,7 @@ const index = ({ searchCategory }) => {
 
     console.log('categoryData', data);
     return (
-        <Layout isLogined={false}>
+        <Layout isLogined={!!token}>
             <Flex
                 paddingBottom={2}
                 alignItems="center"

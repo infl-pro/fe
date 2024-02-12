@@ -55,6 +55,14 @@ const Header = ({ isLogined }: HeaderProps) => {
     // );
     // 임시 state
 
+    const onClickLogout = async () => {
+        // try {
+        //     const response = await
+        // } catch (e) {
+        //     console.log(e);
+        // }
+    };
+
     return (
         <HeaderRoot>
             <Flex
