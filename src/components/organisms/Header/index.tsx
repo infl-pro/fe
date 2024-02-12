@@ -5,8 +5,9 @@ import Text from 'components/atoms/Text';
 import Box from 'components/layout/Box';
 import Flex from 'components/layout/Flex';
 import { GetServerSidePropsContext } from 'next';
-import { parseCookies } from 'nookies';
+import { destroyCookie, parseCookies } from 'nookies';
 import { Category } from 'types';
+import { useRouter } from 'next/navigation';
 
 // 헤더 루트
 const HeaderRoot = styled.header`
@@ -50,17 +51,18 @@ const categoryNameDict: Record<Category, string> = {
  * 헤더
  */
 const Header = ({ isLogined }: HeaderProps) => {
+    const router = useRouter();
     // const { isLogined, isLoading } = useSelector(
     //     (state: RootState) => state.auth,
     // );
     // 임시 state
 
-    const onClickLogout = async () => {
-        // try {
-        //     const response = await
-        // } catch (e) {
-        //     console.log(e);
-        // }
+    const onClickLogout = () => {
+        if (window.confirm('정말 로그아웃 하시겠습니까?')) {
+            destroyCookie(null, 'token', { path: '/' });
+            alert('로그아웃 되었습니다.');
+            router.refresh();
+        }
     };
 
     return (
@@ -122,7 +124,11 @@ const Header = ({ isLogined }: HeaderProps) => {
                         {(() => {
                             // 인증된 상태라면 아이콘을 표시
                             if (isLogined) {
-                                return <Button>로그아웃</Button>;
+                                return (
+                                    <Button onClick={onClickLogout}>
+                                        로그아웃
+                                    </Button>
+                                );
                             } else {
                                 // 로그인 하지 않은 경우에는 아이콘을 표시
                                 return (

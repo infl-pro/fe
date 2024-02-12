@@ -24,10 +24,7 @@ Axios.interceptors.request.use(
 Axios.interceptors.response.use(
     response => response,
     async err => {
-        const {
-            config,
-            response: { status },
-        } = err;
+        const { config, response } = err;
 
         return Promise.reject(
             err.message ?? 'API 요청 중에 에러가 발생했습니다',

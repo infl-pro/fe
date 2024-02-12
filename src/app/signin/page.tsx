@@ -24,6 +24,7 @@ const SigninPage: NextPage = () => {
 
             console.log('Redirecting', redirectTo);
             router.push(redirectTo);
+            router.refresh();
         } else {
             console.log(err);
         }

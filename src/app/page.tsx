@@ -25,7 +25,7 @@ async function getIsLogined() {
 
     const token = cookieStore.get('token');
     console.log(token, 'token');
-    return !!token.value;
+    return !!token?.value;
 }
 
 export default HomePage;
