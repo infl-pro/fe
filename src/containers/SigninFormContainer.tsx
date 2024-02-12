@@ -32,9 +32,10 @@ const SigninFormContainer = ({ onSignin }: SigninFormContainerProps) => {
 
             onSignin && onSignin();
         } catch (err: unknown) {
+            window.alert('로그인에 실패하였습니다.');
             if (err instanceof Error) {
                 // 에러 내용을 표시한다
-                window.alert(err.message);
+                window.alert('로그인에 실패하였습니다.');
                 onSignin && onSignin(err);
             }
         } finally {

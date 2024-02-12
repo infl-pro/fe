@@ -17,7 +17,13 @@ import styled from 'styled-components';
 import OrderMenuItem from 'components/atoms/OrderMenuItem';
 import Link from 'next/link';
 
-const HomePageContent = ({ data }: { data: GetProductListReturnedData }) => {
+const HomePageContent = ({
+    data,
+    isLogined,
+}: {
+    data: GetProductListReturnedData;
+    isLogined: boolean;
+}) => {
     const [input, setInput] = useState('');
     const [listData, setListData] = useState(data);
 
@@ -74,10 +80,10 @@ const HomePageContent = ({ data }: { data: GetProductListReturnedData }) => {
         );
     };
 
-    console.log('listData', listData);
+    console.log('isLogined', isLogined);
     return (
         <ClientComponentContaier>
-            <Layout isLogined={false}>
+            <Layout isLogined={isLogined}>
                 <Flex
                     paddingBottom={2}
                     alignItems="center"

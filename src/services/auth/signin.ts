@@ -26,7 +26,8 @@ type SigninReturnedData = {
  */
 const signin = async (params: SigninParams): Promise<SigninReturnedData> => {
     const response = await Axios.post('/login', params);
-    return response.data;
+    console.log(response);
+    return response.data.data;
 };
 
 export default signin;
