@@ -27,7 +27,7 @@ const ProductPageContent = () => {
     const pathname = usePathname();
 
     const getData = async id => {
-        const { data } = await getProduct(id);
+        const data = await getProduct(id);
         setItemData(data);
         console.log(data);
     };
