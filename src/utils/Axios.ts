@@ -24,11 +24,30 @@ Axios.interceptors.request.use(
 Axios.interceptors.response.use(
     response => response,
     async err => {
-        const { config, response } = err;
+        const {
+            config,
+            response: { status },
+        } = err;
+        const originalRequest = config;
 
-        return Promise.reject(
-            err.message ?? 'API 요청 중에 에러가 발생했습니다',
-        );
+        // if (status === 401) {
+        //     // newAuthorization = 새로운 토큰
+        //     const { data } = await Axios.get('/refreshToken', {});
+        //     const newAuthorization = data.accessToken;
+        //     originalRequest.headers.Authorization = `Bearer ${newAuthorization}`;
+        //     return Axios(originalRequest);
+        // }
+        // if (status === 417) {
+        //     // 토큰이 만료
+        //     // 일주일 지나면 나옴
+        //     localStorage.clear();
+        //     destroyCookie(null, 'token', { path: '/' });
+        //     alert('로그인 시간이 만료되었습니다. 다시 로그인 해주세요.');
+        //     Router.reload();
+        //     // Router.push('/login');
+        //     return Promise.resolve();
+        // }
+        return Promise.reject(err);
     },
 );
 

@@ -29,6 +29,7 @@ type SignupReturnedData = {
  * @returns 사용자 정보
  */
 const signup = async (params: SignupParams): Promise<SignupReturnedData> => {
+    console.log(params);
     const response = await Axios.post('/account/signup', params);
     console.log(response);
     return response.data;

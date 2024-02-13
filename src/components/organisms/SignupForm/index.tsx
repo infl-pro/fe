@@ -25,13 +25,17 @@ interface SignupFormProps {
  * 회원가입폼
  */
 const SignupForm = ({ onSignup }: SignupFormProps) => {
+    const [isIdCheck, setIsIdCheck] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isMailSent, setIsMailSent] = useState(false);
 
     // React Hook Form 사용
     const {
         register,
         handleSubmit,
         watch,
+        setError,
+        clearErrors,
         formState: { errors },
     } = useForm<SignupParams & { authNumber: string }>();
     const onSubmit = (data: SignupParams) => {
@@ -47,22 +51,33 @@ const SignupForm = ({ onSignup }: SignupFormProps) => {
                 username,
             });
             alert('사용할 수 있는 아이디입니다.');
+            clearErrors('username');
+            setIsIdCheck(true);
         } catch (e) {
-            // !에러객체가 안 나오고 Request failed with status code 400 나옴
-            console.log('중복검사에러', e);
-            alert(e.message);
+            alert(e.response.data.message.username);
+            setError('username', {
+                type: 'length',
+                message: '사용할 수 있는 아이디를 입력해주세요',
+            });
         }
     };
 
     const onClickEmailCheck = async () => {
         try {
             const email = watch('email');
+            const username = watch('username');
+            console.log(email, 'email', username);
+            if (!email) {
+                return;
+            }
             const response = await Axios.post('/account/verifyEmail', {
                 email,
             });
-            console.log('이메일 검사', response);
+            alert('인증번호가 전송되었습니다.');
+            setIsMailSent(true);
         } catch (e) {
             console.log('이메일체크', e);
+            alert(e.response.data.message);
         }
     };
 
@@ -103,12 +118,39 @@ const SignupForm = ({ onSignup }: SignupFormProps) => {
         },
     });
 
+    const emailRegister = register('email', {
+        required: true,
+    });
+
     const onClickJoin = () => {
         console.log('onClickJoin');
         // if (!isAuthenticated) {
         //     return;
         // }
-        handleSubmit(onSubmit);
+        if (!isIdCheck) {
+            setError('username', {
+                type: 'length',
+                message: '사용할 수 있는 아이디를 입력해주세요',
+            });
+            alert('중복검사를 실행해주세요');
+        }
+        handleSubmit(onSubmit)();
+    };
+
+    const onClickAuth = async () => {
+        try {
+            const email = watch('email');
+            const authNumber = watch('authNumber');
+            const response = await Axios.post('/account/verifyEmailToken', {
+                email,
+                token: authNumber,
+            });
+            console.log(response, 'emailauth');
+            alert('인증되었습니다.');
+        } catch (e) {
+            console.log(e);
+            alert('인증번호가 일치하지 않습니다.');
+        }
     };
 
     return (
@@ -188,11 +230,12 @@ const SignupForm = ({ onSignup }: SignupFormProps) => {
                 <Flex gap="4px">
                     {/* 이메일 입력 */}
                     <Input
-                        {...register('email', { required: true })}
+                        {...emailRegister}
                         name="email"
-                        type="string"
+                        type="text"
                         placeholder="이메일"
                         hasError={!!errors.email}
+                        disabled={isMailSent}
                     />
 
                     <Button
@@ -202,6 +245,7 @@ const SignupForm = ({ onSignup }: SignupFormProps) => {
                         paddingLeft={'4px'}
                         paddingRight={'4px'}
                         onClick={onClickEmailCheck}
+                        disabled={isMailSent}
                     >
                         이메일 인증
                     </Button>
@@ -229,7 +273,7 @@ const SignupForm = ({ onSignup }: SignupFormProps) => {
                         minWidth={'100px'}
                         paddingLeft={'4px'}
                         paddingRight={'4px'}
-                        // onClick={onClickEmailCheck}
+                        onClick={onClickAuth}
                     >
                         인증
                     </Button>
@@ -240,7 +284,7 @@ const SignupForm = ({ onSignup }: SignupFormProps) => {
                     </Text>
                 )}
             </Box>
-            <Button width="100%" onClick={onClickJoin}>
+            <Button width="100%" onClick={onClickJoin} type="submit">
                 회원가입
             </Button>
         </>
