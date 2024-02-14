@@ -61,6 +61,7 @@ const Header = ({ isLogined }: HeaderProps) => {
         if (window.confirm('정말 로그아웃 하시겠습니까?')) {
             destroyCookie(null, 'token', { path: '/' });
             alert('로그아웃 되었습니다.');
+            router.push('/');
             router.refresh();
         }
     };

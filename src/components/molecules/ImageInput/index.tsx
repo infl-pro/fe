@@ -84,17 +84,7 @@ const BackgroundIconWrapper = styled(Flex)`
     left: 0;
 `;
 
-const ImageInput = () => {
-    const [src, setSrc] = useState();
-
-    const handleChange = e => {
-        setSrc(e.target.files[0]);
-    };
-
-    const clearImages = () => {
-        setSrc(null);
-    };
-
+const ImageInput = ({ src, onChange }) => {
     console.log(src);
     return (
         <ProfileImageWrapper>
@@ -109,7 +99,7 @@ const ImageInput = () => {
                         <input
                             type="file"
                             style={{ display: 'none' }}
-                            onChange={handleChange}
+                            onChange={e => onChange(e.target.files[0])}
                             id="profileImage"
                             // ref={fileInput}
                             accept="image/*"
@@ -119,7 +109,7 @@ const ImageInput = () => {
                 </label>
                 {src && (
                     <CircleIconWrapper>
-                        <CloseIcon size={29} onClick={clearImages} />
+                        <CloseIcon size={29} onClick={() => onChange(null)} />
                     </CircleIconWrapper>
                 )}
             </ProfileImage>

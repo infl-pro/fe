@@ -21,7 +21,7 @@ const extractProductFromUrl = (pathname: string) => {
     return category;
 };
 
-const ProductPageContent = () => {
+const ProductPageContent = ({ isLogined }: { isLogined: boolean }) => {
     const [itemData, setItemData] = useState<Product | null>(null);
 
     const pathname = usePathname();
@@ -51,7 +51,7 @@ const ProductPageContent = () => {
     console.log(itemData, 'itemData');
     return (
         <ClientComponentContaier>
-            <Layout isLogined={false}>
+            <Layout isLogined={isLogined}>
                 {itemData && (
                     <Flex
                         paddingTop={2}

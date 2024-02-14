@@ -1,15 +1,17 @@
 import dynamic from 'next/dynamic';
 import 'react-quill/dist/quill.snow.css';
 import './customEditorStyle.css';
+import Quill from 'react-quill';
 
-const QuillNoSSRWrapper = dynamic(import('react-quill'), {
-    ssr: false,
-    loading: () => <p>Loading ...</p>,
-});
+// const QuillNoSSRWrapper = dynamic(import('react-quill'), {
+//     ssr: false,
+//     loading: () => <p>Loading ...</p>,
+// });
 
 interface TextEditorProps {
     content?: string;
-    onChange: (field: string, value: string) => void;
+    // onChange: (field: string, value: string) => void;
+    onChange: (value: string) => void;
     hasError?: boolean;
 }
 
@@ -56,14 +58,14 @@ const TextEditor: React.FC<TextEditorProps> = ({
     hasError,
 }) => {
     return (
-        <QuillNoSSRWrapper
+        <Quill
             modules={modules}
             placeholder="상품 상세 내용을 입력해주세요"
             formats={formats}
             theme="snow"
             value={content}
             onChange={(content, delta, source, editor) => {
-                onChange('content', editor.getHTML());
+                onChange(editor.getHTML());
             }}
             className={hasError ? 'ql-error' : null}
         />

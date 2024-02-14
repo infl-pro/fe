@@ -14,6 +14,8 @@ const SellPage: NextPage = () => {
     // const { authUser } = useAuthContext();
 
     const handleSave = (err?: Error) => {
+        alert('상품이 등록되었습니다.');
+        // router.push('/');
         // if (authUser && !err) {
         //     // 성공하면 사용자 페이지로 이동한다
         //     router.push(`/users/${authUser.id}`);

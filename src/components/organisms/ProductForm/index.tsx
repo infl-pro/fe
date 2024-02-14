@@ -10,7 +10,7 @@ import TextEditor from 'components/atoms/TextEditor';
 import DropzoneWithImages from 'components/molecules/DropzoneWithImages';
 import { useState } from 'react';
 
-type FileData = {
+export type FileData = {
     id?: string;
     src?: string;
     file?: File;
@@ -19,27 +19,26 @@ type FileData = {
 };
 
 export type ProductFormData = {
-    thumbnail: string;
-    images: FileData[];
+    thumbnail: Blob;
     name: string;
     description: string;
     category: Category;
-    price: number;
-    stockQuantity: number;
+    price: string;
+    stockQuantity: string;
 };
 
 interface ProductFormProps {
     /**
      * 게시 버튼을 클릭했을 때의 이벤트 핸들러
      */
-    onProductSave?: (data: ProductFormData) => void;
+    onProductSave?: (data: ProductFormData, images?: File[]) => void;
 }
 
 /**
  * 상품 게시폼
  */
 const ProductForm = ({ onProductSave }: ProductFormProps) => {
-    const [images, setImages] = useState<FileData[]>([]);
+    const [images, setImages] = useState<File[]>();
 
     // React Hook Form 사용
     const {
@@ -48,14 +47,18 @@ const ProductForm = ({ onProductSave }: ProductFormProps) => {
         control,
         formState: { errors },
     } = useForm<ProductFormData>();
+
     const onSubmit = (data: ProductFormData) => {
-        onProductSave && onProductSave(data);
+        console.log(data, 'ProductFormData');
+        onProductSave && onProductSave(data, images);
     };
 
-    const handleChangeImages = (newImages: FileData[]) => {
-        setImages([...images, ...newImages]);
+    const handleChangeImages = (newImages: File[]) => {
+        // setImages([...images, ...newImages]);
+        setImages([...newImages]);
     };
 
+    console.log(images);
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <Box marginBottom={'32px'}>
@@ -72,7 +75,7 @@ const ProductForm = ({ onProductSave }: ProductFormProps) => {
                     render={({
                         field: { onChange, value },
                         fieldState: { error },
-                    }) => <ImageInput />}
+                    }) => <ImageInput src={value} onChange={onChange} />}
                 />
                 {errors.thumbnail && (
                     <Text color="danger" variant="small" paddingLeft="8px">
@@ -130,7 +133,8 @@ const ProductForm = ({ onProductSave }: ProductFormProps) => {
                             fieldState: { error },
                         }) => (
                             <TextEditor
-                                onChange={() => console.log('onchanges')}
+                                content={value}
+                                onChange={onChange}
                                 hasError={!!error}
                             />
                         )}
@@ -198,13 +202,13 @@ const ProductForm = ({ onProductSave }: ProductFormProps) => {
                     </Text>
                     {/* 재고 수량 입력 */}
                     <Input
-                        {...register('price', { required: true })}
-                        name="price"
+                        {...register('stockQuantity', { required: true })}
+                        name="stockQuantity"
                         type="number"
                         placeholder="1000"
-                        hasError={!!errors.price}
+                        hasError={!!errors.stockQuantity}
                     />
-                    {errors.price && (
+                    {errors.stockQuantity && (
                         <Text color="danger" variant="small" paddingLeft="8px">
                             재고 수량의 입력은 필수입니다
                         </Text>

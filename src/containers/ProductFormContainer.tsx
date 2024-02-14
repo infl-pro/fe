@@ -1,8 +1,12 @@
-import ProductForm, { ProductFormData } from 'components/organisms/ProductForm';
+import ProductForm, {
+    FileData,
+    ProductFormData,
+} from 'components/organisms/ProductForm';
 // import { useAuthContext } from 'contexts/AuthContext';
 // import { useGlobalSpinnerActionsContext } from 'contexts/GlobalSpinnerContext';
 // import addProduct from 'services/products/add-product';
 import { Product } from 'types';
+import Axios from 'utils/Axios';
 
 interface ProductFormContainerProps {
     /**
@@ -18,32 +22,43 @@ const ProductFormContainer = ({ onSave }: ProductFormContainerProps) => {
     // const { authUser } = useAuthContext();
     // const setGlobalSpinner = useGlobalSpinnerActionsContext();
     // 게시 버튼을 눌렀을 때
-    const handleSave = async (data: ProductFormData) => {
+    const handleSave = async (data: ProductFormData, images: File[]) => {
         // if (!authUser) return;
+
+        const product = new FormData();
+
+        product.append('name', data.name);
+        product.append('price', data.price);
+        product.append('description', data.description);
+        product.append('stockQuantity', data.stockQuantity);
+        product.append('categoryName', data.category);
+        product.append('thumbnail', data.thumbnail);
+        if (images) {
+            for (let i = 0; i < images.length; i++) {
+                product.append('imgList', images[i]); // 'imgList[]'도 가능하나, 서버에서 이를 지원해야 함
+            }
+        }
+
         // const product = {
-        //     image: data.image,
-        //     title: data.title,
-        //     description: data.description,
-        //     category: data.category,
-        //     condition: data.condition,
+        //     name: data.name,
         //     price: Number(data.price),
-        //     imageUrl: '/products/shoes/feet-1840619_1920.jpeg', // 더미 이미지
-        //     blurDataUrl: '',
-        //     owner: authUser,
+        //     description: data.description,
+        //     stockQuantity: Number(data.stockQuantity),
+        //     categoryName: data.category,
+        //     thumbnail: data.thumbnail,
         // };
-        // try {
-        //     setGlobalSpinner(true);
-        //     // 제품 API로 상품을 추가한다
-        //     const ret = await addProduct(context, { product });
-        //     onSave && onSave(undefined, ret);
-        // } catch (err: unknown) {
-        //     if (err instanceof Error) {
-        //         window.alert(err.message);
-        //         onSave && onSave(err);
-        //     }
-        // } finally {
-        //     setGlobalSpinner(false);
-        // }
+
+        try {
+            // setGlobalSpinner(true);
+            // 제품 API로 상품을 추가한다
+            const response = await Axios.post('/product/save', product);
+            console.log(response);
+            onSave && onSave();
+        } catch (err: unknown) {
+            console.log(err);
+        } finally {
+            // setGlobalSpinner(false);
+        }
     };
 
     return <ProductForm onProductSave={handleSave} />;

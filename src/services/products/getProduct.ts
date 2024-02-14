@@ -19,7 +19,7 @@ const getProduct = async (id: number): Promise<Product> => {
     const response = await Axios.get(`/product/${id}`);
 
     console.log('getProduct', response);
-    return response.data;
+    return response.data.data;
 };
 
 export default getProduct;
