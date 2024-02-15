@@ -11,7 +11,7 @@ const DropzoneWithImagesContainer = styled(Flex)`
     }
 `;
 
-export type FileData extends File = {
+export type FileData = {
     id?: string;
     src?: string;
     file?: File;
@@ -21,12 +21,12 @@ export type FileData extends File = {
 
 interface DropzoneWithImagesProps {
     name?: string;
-    images: File[];
+    images: FileData[];
     maximumNumber?: number;
     hasError?: boolean;
     width?: string;
     height?: string;
-    onChange: (images: File[]) => void;
+    onChange: (images: FileData[]) => void;
 }
 
 /**
@@ -45,8 +45,8 @@ const DropzoneWithImages = (props: DropzoneWithImagesProps) => {
     const files = useMemo(
         () =>
             images
-                .filter((img: File) => img.file)
-                .map((img: File) => img.file as File),
+                .filter((img: FileData) => img.file)
+                .map((img: FileData) => img.file as File),
         [images],
     );
     const isDropzoneDisplay =
@@ -54,8 +54,8 @@ const DropzoneWithImages = (props: DropzoneWithImagesProps) => {
 
     const onRemove = useCallback(
         (src: string) => {
-            const image = images.find((img: File) => img.src === src);
-            const newImages = images.filter((img: File) => img.src !== src);
+            const image = images.find((img: FileData) => img.src === src);
+            const newImages = images.filter((img: FileData) => img.src !== src);
 
             if (image) {
                 if (image.file && image.src) {
@@ -74,7 +74,7 @@ const DropzoneWithImages = (props: DropzoneWithImagesProps) => {
             const newImages = [];
 
             for (const file of files) {
-                const img = images.find((img: Blob) => img.file === file);
+                const img = images.find((img: FileData) => img.file === file);
 
                 if (
                     !img &&

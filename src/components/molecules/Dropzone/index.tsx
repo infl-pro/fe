@@ -18,6 +18,7 @@ const isInput = (value: EventTarget | null): value is HTMLInputElement => {
  * @returns File의 배열
  */
 const getFilesFromEvent = (e: React.DragEvent | React.ChangeEvent): File[] => {
+    console.log(e, 'getFilesFromEvent');
     if (isDragEvt(e)) {
         return Array.from(e.dataTransfer.files);
     } else if (isInput(e.target) && e.target.files) {

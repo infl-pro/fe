@@ -40,7 +40,7 @@ const ProductCardImageContainer = styled.div`
 // 상품 카드 정보
 const ProductCardInfo = styled.div`
     position: absolute;
-    z-index: 100;
+    z-index: 2;
     top: 0px;
     left: 0px;
 `;

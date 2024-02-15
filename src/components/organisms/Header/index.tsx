@@ -14,6 +14,10 @@ const HeaderRoot = styled.header`
     height: 88px;
     padding: 16px 0px;
     border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+    position: fixed;
+    width: 100%;
+    background-color: ${({ theme }) => theme.colors.white};
+    z-index: 4;
 `;
 
 // 내비게이션

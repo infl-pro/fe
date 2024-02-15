@@ -1,18 +1,19 @@
 import axios from 'axios';
 import { destroyCookie, parseCookies, setCookie } from 'nookies';
 console.log(process.env.API_BASE_URL);
-const Axios = axios.create({
+
+const MultipartAxios = axios.create({
     baseURL: process.env.NEXT_PUBLIC_BASE_URL,
     timeout: 180000,
     withCredentials: true,
 });
 
-Axios.interceptors.request.use(
+MultipartAxios.interceptors.request.use(
     config => {
         const { token } = parseCookies();
         if (!token) return config;
         if (config.headers) {
-            config.headers['Content-Type'] = 'application/json; charset=utf-8';
+            config.headers['Content-Type'] = 'multipart/form-data';
             config.headers.Authorization = `Bearer ${token}`;
         }
         return config;
@@ -20,7 +21,7 @@ Axios.interceptors.request.use(
     err => Promise.reject(err),
 );
 
-Axios.interceptors.response.use(
+MultipartAxios.interceptors.response.use(
     response => response,
     async err => {
         const {
@@ -31,7 +32,7 @@ Axios.interceptors.response.use(
 
         if (data.type === 'InsufficientAuthenticationException') {
             // newAuthorization = 새로운 토큰
-            const { data } = await Axios.post('/refreshToken');
+            const { data } = await MultipartAxios.post('/refreshToken');
             const newAuthorization = data.data.accessToken;
 
             setCookie(null, 'token', newAuthorization, {
@@ -44,11 +45,11 @@ Axios.interceptors.response.use(
 
             originalRequest.headers.Authorization = `Bearer ${newAuthorization}`;
 
-            return Axios(originalRequest);
+            return MultipartAxios(originalRequest);
         }
 
         return Promise.reject(err);
     },
 );
 
-export default Axios;
+export default MultipartAxios;

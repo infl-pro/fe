@@ -53,7 +53,7 @@ const index = ({ searchCategory }) => {
                         <ProductCard
                             title={p.productName}
                             price={p.productPrice}
-                            imageUrl={`http://52.79.222.161:8080${p.productThumbnail}`}
+                            imageUrl={`https://shapp.shop${p.productThumbnail}`}
                         />
                     </Link>
                 ))}

@@ -12,6 +12,15 @@ import ClientComponentContaier from 'components/ClientComponentContaier';
 import { usePathname, useSearchParams } from 'next/navigation';
 import getProduct from 'services/products/getProduct';
 import { Product } from 'types';
+import styled from 'styled-components';
+import Axios from 'utils/Axios';
+
+const NumberInput = styled.input`
+    width: 50px;
+    height: 29px;
+    font-size: 30px;
+    margin-top: 8px;
+`;
 
 const extractProductFromUrl = (pathname: string) => {
     const parts = pathname.split('/products/');
@@ -23,6 +32,7 @@ const extractProductFromUrl = (pathname: string) => {
 
 const ProductPageContent = ({ isLogined }: { isLogined: boolean }) => {
     const [itemData, setItemData] = useState<Product | null>(null);
+    const [quantity, setQuantity] = useState<number>(1);
 
     const pathname = usePathname();
 
@@ -38,8 +48,21 @@ const ProductPageContent = ({ isLogined }: { isLogined: boolean }) => {
         getData(productId);
     }, [pathname]);
 
-    const handleAddToCartButtonClick = () => {
-        // const productId = Number(product.id)
+    const handleAddToCartButtonClick = async () => {
+        try {
+            const productId = Number(itemData.productId);
+
+            const response = await Axios.post('/cart/add', {
+                productId,
+                quantity,
+            });
+
+            console.log(response);
+
+            alert('카트에 추가되었습니다.');
+        } catch (e) {
+            console.log(e);
+        }
         // const result = cart.findIndex((v) => v.id === productId)
         // // 같은 상품이 카트에 없으면 카트에 추가한다
         // if (result === -1) {
@@ -71,7 +94,7 @@ const ProductPageContent = ({ isLogined }: { isLogined: boolean }) => {
                                     variant="detail"
                                     title={itemData.productName}
                                     price={itemData.price}
-                                    imageUrl={`http://52.79.222.161:8080${itemData.thumbnailUrl}`}
+                                    imageUrl={`https://shapp.shop${itemData.thumbnailUrl}`}
                                 />
                             </Flex>
                             <Separator />
@@ -99,17 +122,34 @@ const ProductPageContent = ({ isLogined }: { isLogined: boolean }) => {
                                     </Text>
                                 ))} */}
                                 </Box>
-                                {/*
-                카트 추가 버튼 컨테이너
-                버튼을 눌렀다면 ShoppingCartContext에 상품을 추가한다 */}
+                                <Flex gap={'10px'} marginLeft={'10px'}>
+                                    <Box>
+                                        <div style={{ textAlign: 'center' }}>
+                                            수량
+                                        </div>
+                                        <NumberInput
+                                            type="number"
+                                            value={quantity}
+                                            onChange={e =>
+                                                setQuantity(
+                                                    Number(e.target.value),
+                                                )
+                                            }
+                                        />
+                                    </Box>
 
-                                <Button
-                                    width={{ base: '400px', md: '100%' }}
-                                    height="66px"
-                                    onClick={handleAddToCartButtonClick}
-                                >
-                                    카트에 추가
-                                </Button>
+                                    {/*
+                                    카트 추가 버튼 컨테이너
+                                    버튼을 눌렀다면 ShoppingCartContext에 상품을 추가한다 */}
+
+                                    <Button
+                                        width={{ base: '400px', md: '100%' }}
+                                        height="66px"
+                                        onClick={handleAddToCartButtonClick}
+                                    >
+                                        카트에 추가
+                                    </Button>
+                                </Flex>
                             </Flex>
                         </Box>
                     </Flex>

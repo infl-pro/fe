@@ -21,7 +21,7 @@ const Layout = ({ children, isLogined }: LayoutProps) => {
         <AllContainer>
             <Box>
                 <Header isLogined={isLogined} />
-                <main>{children}</main>
+                <main style={{ marginTop: '88px' }}>{children}</main>
             </Box>
             <Box>
                 <Separator />

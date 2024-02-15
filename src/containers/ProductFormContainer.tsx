@@ -7,6 +7,7 @@ import ProductForm, {
 // import addProduct from 'services/products/add-product';
 import { Product } from 'types';
 import Axios from 'utils/Axios';
+import MultipartAxios from 'utils/MultipartAxios';
 
 interface ProductFormContainerProps {
     /**
@@ -22,7 +23,7 @@ const ProductFormContainer = ({ onSave }: ProductFormContainerProps) => {
     // const { authUser } = useAuthContext();
     // const setGlobalSpinner = useGlobalSpinnerActionsContext();
     // 게시 버튼을 눌렀을 때
-    const handleSave = async (data: ProductFormData, images: File[]) => {
+    const handleSave = async (data: ProductFormData, images: FileData[]) => {
         // if (!authUser) return;
 
         const product = new FormData();
@@ -35,9 +36,11 @@ const ProductFormContainer = ({ onSave }: ProductFormContainerProps) => {
         product.append('thumbnail', data.thumbnail);
         if (images) {
             for (let i = 0; i < images.length; i++) {
-                product.append('imgList', images[i]); // 'imgList[]'도 가능하나, 서버에서 이를 지원해야 함
+                product.append('imgList', images[i].file);
             }
         }
+
+        console.log(typeof data.thumbnail, typeof images[0]);
 
         // const product = {
         //     name: data.name,
@@ -51,7 +54,10 @@ const ProductFormContainer = ({ onSave }: ProductFormContainerProps) => {
         try {
             // setGlobalSpinner(true);
             // 제품 API로 상품을 추가한다
-            const response = await Axios.post('/product/save', product);
+            const response = await MultipartAxios.post(
+                '/product/save',
+                product,
+            );
             console.log(response);
             onSave && onSave();
         } catch (err: unknown) {

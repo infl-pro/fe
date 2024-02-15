@@ -38,7 +38,7 @@ interface ProductFormProps {
  * 상품 게시폼
  */
 const ProductForm = ({ onProductSave }: ProductFormProps) => {
-    const [images, setImages] = useState<File[]>();
+    const [images, setImages] = useState<File[]>([]);
 
     // React Hook Form 사용
     const {
