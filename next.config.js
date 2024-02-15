@@ -19,9 +19,9 @@ const nextConfig = {
     images: {
         remotePatterns: [
             {
-                protocol: 'http',
-                hostname: '52.79.222.161',
-                port: '8080',
+                protocol: 'https',
+                hostname: 'shapp.shop',
+                // port: '443',
                 pathname: '**',
             },
         ],
