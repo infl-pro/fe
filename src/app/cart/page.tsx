@@ -23,7 +23,12 @@ const CartPage: NextPage = () => {
                 >
                     <Box width="1240px">
                         <Box>
-                            <Text display="block" variant="large" as="h1">
+                            <Text
+                                display="block"
+                                variant="large"
+                                as="h1"
+                                marginBottom={3}
+                            >
                                 장바구니
                             </Text>
                             {/*

@@ -15,7 +15,7 @@ import { Product } from 'types';
 import styled from 'styled-components';
 import Axios from 'utils/Axios';
 
-const NumberInput = styled.input`
+export const NumberInput = styled.input`
     width: 50px;
     height: 29px;
     font-size: 30px;

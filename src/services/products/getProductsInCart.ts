@@ -19,7 +19,7 @@ export const getProductsInCart = createAsyncThunk(
     'products/getProductsInCart',
     async () => {
         const response = await Axios.get('/cart');
-        return response.data;
+        return response.data.data;
     },
 );
 

@@ -10,7 +10,18 @@ const initialState = {
 const cartSlice = createSlice({
     name: 'auth',
     initialState,
-    reducers: {},
+    reducers: {
+        changeQuantity(state, action) {
+            const theItem = state.cart.find(
+                item => item.cartId === action.payload.id,
+            );
+
+            theItem.quantity = action.payload.quantity;
+            state.cart = state.cart.map(item =>
+                item.cartId === action.payload.id ? theItem : item,
+            );
+        },
+    },
     extraReducers: builder => {
         builder.addCase(getProductsInCart.pending, state => {
             state.isLoading = true;
@@ -27,5 +38,7 @@ const cartSlice = createSlice({
         });
     },
 });
+
+export const { changeQuantity } = cartSlice.actions;
 
 export default cartSlice;

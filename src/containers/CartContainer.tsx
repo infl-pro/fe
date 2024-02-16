@@ -1,23 +1,47 @@
+import Text from 'components/atoms/Text';
 import CartProduct from 'components/organisms/CartProduct';
-import { useEffect } from 'react';
-import getCartProduts from 'services/cart/getCartProducts';
+import { AppDispatch, RootState } from 'lib/store';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import getProductsInCart from 'services/products/getProductsInCart';
+import Axios from 'utils/Axios';
 
 /**
  * 카트 컨테이너
  */
 const CartContainer = () => {
+    const {
+        isLoading,
+        cart: cartProducts,
+        error,
+    } = useSelector((state: RootState) => state.cart);
+    const dispatch = useDispatch<AppDispatch>();
+
     useEffect(() => {
-        getCartProduts().then(response => {
-            console.log(response);
-        });
+        dispatch(getProductsInCart());
     }, []);
 
     // const setGlobalSpinner = useGlobalSpinnerActionsContext();
-    // const { cart, removeProductFromCart } = useShoppingCartContext();
+
     // 삭제 버튼 클릭 시, 상품을 삭제
-    const handleRemoveButtonClick = (id: number) => {
-        console.log('handleRemoveButtonClick');
-        // removeProductFromCart(id);
+    const handleRemoveButtonClick = async (id: number) => {
+        try {
+            if (confirm('아이템을 삭제하시겠습니까?')) {
+                // api 분리하기
+
+                // id 여러개 선택하게 하기
+                const response = await Axios.delete('/cart/delete', {
+                    data: {
+                        cartId: [id],
+                    },
+                });
+                console.log(response);
+                // removeProductFromCart(id);
+            }
+        } catch (e) {
+            console.log(e);
+            alert('삭제에 실패하였습니다.');
+        }
     };
     // 구입 버튼 클릭 시, 상품을 구입
     const handleBuyButtonClick = async (id: number) => {
@@ -37,20 +61,26 @@ const CartContainer = () => {
         // }
     };
 
+    if (isLoading) return null;
+
     return (
         <>
             {/* cart */}
-            {[].map(p => (
+            {cartProducts.map(p => (
                 <CartProduct
-                    key={p.id}
-                    id={p.id}
-                    imageUrl={p.imageUrl}
-                    title={p.title}
-                    price={p.price}
+                    key={p.cartId}
+                    id={p.cartId}
+                    imageUrl={p.productThumbnailUrl}
+                    title={p.productName}
+                    price={p.productPrice}
+                    quantity={p.quantity}
                     onRemoveButtonClick={handleRemoveButtonClick}
                     onBuyButtonClick={handleBuyButtonClick}
                 />
             ))}
+            {cartProducts.length === 0 && (
+                <Text>장바구니에 담긴 상품이 없습니다.</Text>
+            )}
         </>
     );
 };
