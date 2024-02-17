@@ -11,6 +11,7 @@ import { NumberInput } from 'components/templates/ProductPageContent';
 import { useDispatch } from 'react-redux';
 import { changeQuantity } from 'lib/features/cart/cartSlice';
 import Axios from 'utils/Axios';
+import { Checkbox } from '@mui/material';
 
 const style: CSSProperties = {
     position: 'absolute' as const,
@@ -66,6 +67,8 @@ interface CartProductProps {
      * 삭제 버튼을 클릭했을 때의 이벤트 핸들러
      */
     onRemoveButtonClick?: (id: number) => void;
+    selected?: boolean;
+    onChangeCheckBox?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 /**
@@ -79,6 +82,8 @@ const CartProduct = ({
     quantity,
     onBuyButtonClick,
     onRemoveButtonClick,
+    selected,
+    onChangeCheckBox,
 }: CartProductProps) => {
     const [modal, setModal] = useState(false);
     const [quantityInModal, setQuantityInModal] = useState(quantity);
@@ -102,8 +107,9 @@ const CartProduct = ({
     console.log(imageUrl, process.env.NEXT_PUBLIC_BASE_URL + imageUrl);
     return (
         <>
-            <Flex justifyContent="space-between">
+            <Flex justifyContent="space-between" width="586px">
                 <Flex>
+                    <Checkbox checked={selected} onChange={onChangeCheckBox} />
                     <Box width="120px" height="120px">
                         <Link href={`/products/${id}`}>
                             <Image
@@ -158,7 +164,7 @@ const CartProduct = ({
                                         onBuyButtonClick && onBuyButtonClick(id)
                                     }
                                 >
-                                    구입
+                                    개별 주문
                                 </Button>
                                 {/* 삭제 버튼(데스크톱) */}
                                 <Button
@@ -178,6 +184,7 @@ const CartProduct = ({
                         </Flex>
                     </Box>
                 </Flex>
+
                 <Box display={{ base: 'none', md: 'block' }}>
                     {/* 삭제 버튼(모바일) */}
                     <RemoveText
