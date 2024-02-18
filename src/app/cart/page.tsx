@@ -6,14 +6,22 @@ import Flex from 'components/layout/Flex';
 import Layout from 'components/templates/LayoutStyle';
 import CartContainer from 'containers/CartContainer';
 import ClientComponentContaier from 'components/ClientComponentContaier';
+import { parseCookies } from 'nookies';
+import { useRouter } from 'next/navigation';
 
 const CartPage: NextPage = () => {
     // 인증 가드
-    // useAuthGuard();
+    const { token } = parseCookies();
+
+    const router = useRouter();
+
+    if (!token) {
+        router.push('/signin');
+    }
 
     return (
         <ClientComponentContaier>
-            <Layout isLogined>
+            <Layout isLogined={!!token}>
                 <Flex
                     paddingTop={2}
                     paddingBottom={2}

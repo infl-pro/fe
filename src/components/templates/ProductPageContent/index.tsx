@@ -14,6 +14,7 @@ import getProduct from 'services/products/getProduct';
 import { Product } from 'types';
 import styled from 'styled-components';
 import Axios from 'utils/Axios';
+import ScaleImage from 'components/atoms/ScaleImage';
 
 export const NumberInput = styled.input`
     width: 50px;
@@ -63,12 +64,6 @@ const ProductPageContent = ({ isLogined }: { isLogined: boolean }) => {
         } catch (e) {
             console.log(e);
         }
-        // const result = cart.findIndex((v) => v.id === productId)
-        // // 같은 상품이 카트에 없으면 카트에 추가한다
-        // if (result === -1) {
-        //   addProductToCart(product)
-        // }
-        // onAddToCartButtonClick && onAddToCartButtonClick(product)
     };
 
     console.log(itemData, 'itemData');
@@ -112,8 +107,17 @@ const ProductPageContent = ({ isLogined }: { isLogined: boolean }) => {
                                 height={{ base: '100%', md: 'auto' }}
                             >
                                 {/* 상품 개요를 표시, 줄바꿈별로 텍스트 컴포넌트로 감싼다 */}
-                                <Box>
-                                    {itemData.description}
+                                {/* <Content
+                                    dangerouslySetInnerHTML={{
+                                        __html: contents,
+                                    }}
+                                    className="ql-editor"
+                                /> */}
+                                <Box
+                                    dangerouslySetInnerHTML={{
+                                        __html: itemData.description,
+                                    }}
+                                >
                                     {/* {product.description
                                 .split('\n')
                                 .map((text: string, i: number) => (
@@ -122,6 +126,17 @@ const ProductPageContent = ({ isLogined }: { isLogined: boolean }) => {
                                     </Text>
                                 ))} */}
                                 </Box>
+                                <Flex flexWrap={'wrap'}>
+                                    {itemData.imgList.map((item, idx) => (
+                                        <ScaleImage
+                                            key={idx}
+                                            src={`https://shapp.shop${item.url}`}
+                                            width={250}
+                                            height={250}
+                                            style={{ objectFit: 'cover' }}
+                                        />
+                                    ))}
+                                </Flex>
                                 <Flex gap={'10px'} marginLeft={'10px'}>
                                     <Box>
                                         <div style={{ textAlign: 'center' }}>

@@ -21,6 +21,11 @@ const cartSlice = createSlice({
                 item.cartId === action.payload.id ? theItem : item,
             );
         },
+        deleteProduct(state, action) {
+            state.cart = state.cart.filter(
+                item => item.cartId !== action.payload,
+            );
+        },
     },
     extraReducers: builder => {
         builder.addCase(getProductsInCart.pending, state => {
@@ -39,6 +44,6 @@ const cartSlice = createSlice({
     },
 });
 
-export const { changeQuantity } = cartSlice.actions;
+export const { changeQuantity, deleteProduct } = cartSlice.actions;
 
 export default cartSlice;

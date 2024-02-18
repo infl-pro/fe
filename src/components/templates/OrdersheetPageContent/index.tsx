@@ -13,15 +13,69 @@ import ScaleImage from 'components/atoms/ScaleImage';
 import Text from 'components/atoms/Text';
 import Box from 'components/layout/Box';
 import Flex from 'components/layout/Flex';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import Axios from 'utils/Axios';
+import * as PortOne from '@portone/browser-sdk/v2';
 
 const TextTitle = styled(Text)`
     width: 70px;
 `;
 
 const index = ({ data }) => {
-    console.log(data);
+    const [addressLine1, setAddressLine1] = useState('');
+    const [addressLine2, setAddressLine2] = useState('');
+
+    const onClickPayment = async () => {
+        const requestBody = {
+            // Store ID 설정
+            storeId: data.storeId,
+            // 채널 키 설정
+            channelKey: data.channelKey,
+            paymentId: data.paymentId,
+            orderName: data.orderName,
+            totalAmount: data.totalAmount,
+            currency: data.currency,
+            payMethod: data.payMethod,
+            redirectUrl: `https://shapp.shop/${data.redirectUrl}`,
+            customer: {
+                customerId: data.customer.userId,
+                address: {
+                    addressLine1: addressLine1,
+                    addressLine2: addressLine2,
+                },
+            },
+            products: data.products.map(item => ({
+                id: item.id,
+                name: item.name,
+                amount: item.amount,
+                quantity: item.quantity,
+            })),
+            customData: {
+                cartList: data.customData.cartList,
+            },
+        };
+
+        console.log(requestBody, 'requestBody');
+
+        const response = await PortOne.requestPayment(requestBody);
+
+        if (response.code != null) {
+            // 오류 발생
+            return alert(response.message);
+        }
+
+        const res = await Axios.post('/payment', {
+            transactionType: response.transactionType,
+            txId: response.txId,
+            paymentId: response.paymentId,
+            code: response.code ?? null,
+            message: response.message ?? null,
+        });
+        console.log(res, 'res');
+    };
+
+    console.log(data, 'data');
     return (
         <div>
             <Box marginBottom={3}>
@@ -38,13 +92,19 @@ const index = ({ data }) => {
                     <Flex alignItems={'center'} gap={'8px'}>
                         <TextTitle fontWeight={'bold'}>주소</TextTitle>
                         <Box width={'580px'}>
-                            <Input />
+                            <Input
+                                onChange={e => setAddressLine1(e.target.value)}
+                                value={addressLine1}
+                            />
                         </Box>
                     </Flex>
                     <Flex alignItems={'center'} gap={'8px'}>
                         <TextTitle fontWeight={'bold'}>상세 주소</TextTitle>
                         <Box width={'580px'}>
-                            <Input />
+                            <Input
+                                onChange={e => setAddressLine2(e.target.value)}
+                                value={addressLine2}
+                            />
                         </Box>
                     </Flex>
                 </Flex>
@@ -101,8 +161,13 @@ const index = ({ data }) => {
                     </TableBody>
                 </Table>
             </TableContainer>
+            <Box textAllign={'center'} margin={1}>
+                <Text fontWeight={'bold'}>총금액: {data.totalAmount}원</Text>
+            </Box>
             <Box marginTop={2} textAllign={'center'}>
-                <Button width={'290px'}>결제하기</Button>
+                <Button width={'290px'} onClick={onClickPayment}>
+                    결제하기
+                </Button>
             </Box>
         </div>
     );

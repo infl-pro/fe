@@ -12,6 +12,10 @@ export type User = {
     email: string;
 };
 
+type ProductDetailImaage = {
+    url: string;
+};
+
 export type Product = {
     productId: number;
     productName: string;
@@ -26,4 +30,5 @@ export type Product = {
     sellerName: string;
     isPurchased: boolean;
     isSeller: boolean;
+    imgList: ProductDetailImaage[];
 };

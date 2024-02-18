@@ -62,6 +62,7 @@ const ProductFormContainer = ({ onSave }: ProductFormContainerProps) => {
             onSave && onSave();
         } catch (err: unknown) {
             console.log(err);
+            alert('상품 등록에 실패하였습니다.');
         } finally {
             // setGlobalSpinner(false);
         }

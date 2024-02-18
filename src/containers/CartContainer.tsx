@@ -5,6 +5,7 @@ import Box from 'components/layout/Box';
 import Flex from 'components/layout/Flex';
 import CartProduct from 'components/organisms/CartProduct';
 import { useSelection } from 'hooks/useSelection';
+import { deleteProduct } from 'lib/features/cart/cartSlice';
 import { AppDispatch, RootState } from 'lib/store';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -52,7 +53,7 @@ const CartContainer = () => {
                     },
                 });
                 console.log(response);
-                // removeProductFromCart(id);
+                dispatch(deleteProduct(id));
             }
         } catch (e) {
             console.log(e);

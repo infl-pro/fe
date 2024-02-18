@@ -70,6 +70,8 @@ const Header = ({ isLogined }: HeaderProps) => {
         }
     };
 
+    console.log(isLogined, 'isLogined');
+
     return (
         <HeaderRoot>
             <Flex
@@ -151,14 +153,3 @@ const Header = ({ isLogined }: HeaderProps) => {
 };
 
 export default Header;
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-    const { req } = context;
-    const { token } = parseCookies({ req });
-
-    return {
-        props: {
-            isLogined: !!token,
-        },
-    };
-}

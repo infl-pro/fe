@@ -8,10 +8,16 @@ import ProductFormContainer from 'containers/ProductFormContainer';
 // import { useAuthContext } from 'contexts/AuthContext';
 // import { useAuthGuard } from 'utils/hooks';
 import ClientComponentContaier from 'components/ClientComponentContaier';
+import { parseCookies } from 'nookies';
 
 const SellPage: NextPage = () => {
+    const { token } = parseCookies();
+
     const router = useRouter();
-    // const { authUser } = useAuthContext();
+
+    if (!token) {
+        router.push('/signin');
+    }
 
     const handleSave = (err?: Error) => {
         alert('상품이 등록되었습니다.');
@@ -21,9 +27,6 @@ const SellPage: NextPage = () => {
         //     router.push(`/users/${authUser.id}`);
         // }
     };
-
-    // 인증 가드
-    // useAuthGuard();
 
     return (
         <ClientComponentContaier>
