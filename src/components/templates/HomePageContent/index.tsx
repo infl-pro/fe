@@ -26,6 +26,8 @@ const HomePageContent = ({
 }) => {
     const [input, setInput] = useState('');
     const [listData, setListData] = useState(data);
+    const [option, setOption] = useState('id');
+    const [order, setOrder] = useState('desc');
 
     const onClickSearchIcon = async () => {
         try {
@@ -126,23 +128,29 @@ const HomePageContent = ({
                                 </Text>
                                 <Flex gap={'15px'}>
                                     <OrderMenuItem
-                                        onClick={() =>
-                                            onClickOrderMenu('id', 'desc')
-                                        }
+                                        onClick={() => {
+                                            onClickOrderMenu('id', 'desc');
+                                            setOption('id');
+                                            setOrder('desc');
+                                        }}
                                     >
                                         신상품순
                                     </OrderMenuItem>
                                     <OrderMenuItem
-                                        onClick={() =>
-                                            onClickOrderMenu('price', 'asc')
-                                        }
+                                        onClick={() => {
+                                            onClickOrderMenu('price', 'asc');
+                                            setOption('price');
+                                            setOrder('asc');
+                                        }}
                                     >
                                         낮은 가격순
                                     </OrderMenuItem>
                                     <OrderMenuItem
-                                        onClick={() =>
-                                            onClickOrderMenu('price', 'desc')
-                                        }
+                                        onClick={() => {
+                                            onClickOrderMenu('price', 'desc');
+                                            setOption('price');
+                                            setOrder('desc');
+                                        }}
                                     >
                                         높은 가격순
                                     </OrderMenuItem>
