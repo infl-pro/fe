@@ -31,14 +31,14 @@ interface ProductFormProps {
     /**
      * 게시 버튼을 클릭했을 때의 이벤트 핸들러
      */
-    onProductSave?: (data: ProductFormData, images?: File[]) => void;
+    onProductSave?: (data: ProductFormData, images?: FileData[]) => void;
 }
 
 /**
  * 상품 게시폼
  */
 const ProductForm = ({ onProductSave }: ProductFormProps) => {
-    const [images, setImages] = useState<File[]>([]);
+    const [images, setImages] = useState<FileData[]>([]);
 
     // React Hook Form 사용
     const {
@@ -53,7 +53,7 @@ const ProductForm = ({ onProductSave }: ProductFormProps) => {
         onProductSave && onProductSave(data, images);
     };
 
-    const handleChangeImages = (newImages: File[]) => {
+    const handleChangeImages = (newImages: FileData[]) => {
         // setImages([...images, ...newImages]);
         setImages([...newImages]);
     };
