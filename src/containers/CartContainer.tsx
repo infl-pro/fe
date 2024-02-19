@@ -95,19 +95,23 @@ const CartContainer = () => {
         <>
             {/* cart */}
             <Box paddingLeft={'11px'}>
-                <FormControlLabel
-                    label="전체선택"
-                    control={
-                        <Checkbox
-                            checked={selected.length === cartProducts.length}
-                            onChange={event =>
-                                event.target.checked
-                                    ? onSelectAll?.()
-                                    : onDeselectAll?.()
-                            }
-                        />
-                    }
-                />
+                {cartProducts.length !== 0 && (
+                    <FormControlLabel
+                        label="전체선택"
+                        control={
+                            <Checkbox
+                                checked={
+                                    selected.length === cartProducts.length
+                                }
+                                onChange={event =>
+                                    event.target.checked
+                                        ? onSelectAll?.()
+                                        : onDeselectAll?.()
+                                }
+                            />
+                        }
+                    />
+                )}
             </Box>
             <Flex
                 flexDirection={'column'}

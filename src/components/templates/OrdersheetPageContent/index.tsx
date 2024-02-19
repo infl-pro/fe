@@ -17,6 +17,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Axios from 'utils/Axios';
 import * as PortOne from '@portone/browser-sdk/v2';
+import { useRouter } from 'next/router';
 
 const TextTitle = styled(Text)`
     width: 70px;
@@ -25,6 +26,8 @@ const TextTitle = styled(Text)`
 const index = ({ data }) => {
     const [addressLine1, setAddressLine1] = useState('');
     const [addressLine2, setAddressLine2] = useState('');
+
+    const router = useRouter();
 
     const onClickPayment = async () => {
         const requestBody = {
@@ -37,7 +40,7 @@ const index = ({ data }) => {
             totalAmount: data.totalAmount,
             currency: data.currency,
             payMethod: data.payMethod,
-            redirectUrl: `https://shapp.shop/${data.redirectUrl}`,
+            redirectUrl: `https://shapp.shop/api${data.redirectUrl}`,
             customer: {
                 customerId: data.customer.userId,
                 address: {
@@ -65,14 +68,13 @@ const index = ({ data }) => {
             return alert(response.message);
         }
 
-        const res = await Axios.post('/payment', {
-            transactionType: response.transactionType,
-            txId: response.txId,
-            paymentId: response.paymentId,
-            code: response.code ?? null,
-            message: response.message ?? null,
-        });
-        console.log(res, 'res');
+        const res = await Axios.post('/payment', response);
+        if (res.data.success) {
+            alert('주문이 완료되었습니다.');
+            router.push('/purchaseList');
+        } else {
+            alert('주문 생성 실패');
+        }
     };
 
     console.log(data, 'data');
