@@ -17,7 +17,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Axios from 'utils/Axios';
 import * as PortOne from '@portone/browser-sdk/v2';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const TextTitle = styled(Text)`
     width: 70px;
