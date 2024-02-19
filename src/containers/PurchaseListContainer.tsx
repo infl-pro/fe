@@ -18,13 +18,14 @@ import OrderDetailContent from 'components/templates/OrderDetailContent';
 const PurchaseListContainer = () => {
     const [list, setList] = useState([]);
     const [detailData, setDetailData] = useState();
+    const [dataTrigger, setDataTrigger] = useState(false);
 
     useEffect(() => {
         Axios.get('/orders').then(res => {
             console.log(res);
             setList(res.data.data);
         });
-    }, []);
+    }, [dataTrigger]);
 
     const onClickOrderItem = async id => {
         try {
@@ -33,6 +34,10 @@ const PurchaseListContainer = () => {
         } catch (e) {
             alert('주문 상세 정보를 불러오는데 실패했습니다.');
         }
+    };
+
+    const reloadData = () => {
+        setDataTrigger(!dataTrigger);
     };
 
     return (
@@ -54,7 +59,7 @@ const PurchaseListContainer = () => {
                                 <TableCell>
                                     <Flex gap={'8px'} alignItems={'center'}>
                                         <ScaleImage
-                                            src={`https://shapp.shop${item.productThumbnailUrl}`}
+                                            src={`https://shapp.shop/api${item.productThumbnailUrl}`}
                                             width={150}
                                             height={150}
                                             style={{ objectFit: 'contain' }}
@@ -84,7 +89,7 @@ const PurchaseListContainer = () => {
                                     </Flex>
                                 </TableCell>
                                 <TableCell>{item.createAt}</TableCell>
-                                <TableCell>??</TableCell>
+                                <TableCell>{item.ordersId}</TableCell>
                                 <TableCell>{item.amount}원</TableCell>
                                 <TableCell>{item.status}</TableCell>
                             </TableRow>
@@ -92,7 +97,12 @@ const PurchaseListContainer = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            {detailData && <OrderDetailContent detailData={detailData} />}
+            {detailData && (
+                <OrderDetailContent
+                    detailData={detailData}
+                    reloadData={reloadData}
+                />
+            )}
         </Box>
     );
 };

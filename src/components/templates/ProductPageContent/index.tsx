@@ -66,7 +66,6 @@ const ProductPageContent = ({ isLogined }: { isLogined: boolean }) => {
         }
     };
 
-    console.log(itemData, 'itemData');
     return (
         <ClientComponentContaier>
             <Layout isLogined={isLogined}>
@@ -89,7 +88,7 @@ const ProductPageContent = ({ isLogined }: { isLogined: boolean }) => {
                                     variant="detail"
                                     title={itemData.productName}
                                     price={itemData.price}
-                                    imageUrl={`https://shapp.shop${itemData.thumbnailUrl}`}
+                                    imageUrl={`https://shapp.shop/api${itemData.thumbnailUrl}`}
                                 />
                             </Flex>
                             <Separator />
@@ -130,7 +129,7 @@ const ProductPageContent = ({ isLogined }: { isLogined: boolean }) => {
                                     {itemData.imgList.map((item, idx) => (
                                         <ScaleImage
                                             key={idx}
-                                            src={`https://shapp.shop${item.url}`}
+                                            src={`https://shapp.shop/api${item.url}`}
                                             width={250}
                                             height={250}
                                             style={{ objectFit: 'cover' }}

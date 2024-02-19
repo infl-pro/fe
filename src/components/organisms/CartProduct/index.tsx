@@ -114,7 +114,7 @@ const CartProduct = ({
                         <Link href={`/products/${id}`}>
                             <Image
                                 quality="85"
-                                src={`https://shapp.shop${imageUrl}`}
+                                src={`https://shapp.shop/api${imageUrl}`}
                                 alt={title}
                                 height={120}
                                 width={120}

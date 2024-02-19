@@ -136,7 +136,7 @@ const index = ({ data }) => {
                                 <TableCell component="th" scope="row">
                                     <Flex gap={'8px'} alignItems={'center'}>
                                         <ScaleImage
-                                            src={`https://shapp.shop${item.thumbnailUrl}`}
+                                            src={`https://shapp.shop/api${item.thumbnailUrl}`}
                                             width={150}
                                             height={150}
                                             style={{ objectFit: 'contain' }}
