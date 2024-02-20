@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 쇼핑몰 웹사이트 프론트엔드
 
-## Getting Started
+이 프로젝트는 쇼핑몰 웹사이트의 프론트엔드 부분을 담당하는 프로젝트입니다.
 
-First, run the development server:
+## 기능
+
+1. **상품 목록 조회**: 웹 페이지를 통해 모든 상품을 조회할 수 있습니다.
+2. **장바구니 추가**: 상품을 클릭하여 장바구니에 추가할 수 있습니다.
+3. **검색 기능**: 상품을 검색하여 원하는 상품을 쉽게 찾을 수 있습니다.
+4. **결제/주문 기능** 장바구니에 담은 상품을 결제 및 주문할 수 있습니다.
+5. **회원가입**: 사용자는 회원가입을 통해 계정을 생성할 수 있습니다.
+6. **주문내역 조회**: 로그인한 사용자는 주문내역을 조회할 수 있습니다.
+7. **상품 등록**: 사용자는 새로운 상품을 등록할 수 있습니다.
+
+## 실행 방법
 
 ```bash
-npm run dev
-# or
+git clone https://github.com/infl-pro/fe.git
+yarn install
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 사용된 기술 및 라이브러리
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **React**: 웹 UI를 개발하기 위한 자바스크립트 라이브러리
+- **Next.js**: React 기반의 프레임워크로, SSR 및 정적 파일 생성 등을 지원
+- **Styled-components**: CSS-in-JS 라이브러리로, 컴포넌트 스타일링을 쉽게 관리할 수 있음
+- **Material-UI**: React용 UI 라이브러리로, 미리 디자인된 컴포넌트를 사용할 수 있음
+- **React Query**: 데이터 관리를 위한 라이브러리로, 서버 데이터를 효율적으로 가져오고 관리
+- **Axios**: HTTP 클라이언트로, 서버와의 통신을 쉽게 할 수 있음
+- **React Hook Form**: React 기반의 폼 상태 및 유효성 검사를 쉽게 관리하는 훅
+- **React Quill**: Rich Text Editor를 사용할 수 있는 React 컴포넌트
+- **Redux Toolkit**: Redux 상태 관리 라이브러리를 쉽게 사용할 수 있도록 도와주는 툴킷
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
