@@ -1,5 +1,3 @@
-import { Category } from 'types';
-import Axios from 'utils/Axios';
 import { useQuery } from '@tanstack/react-query';
 import getProductList, {
     GetProductListParams,

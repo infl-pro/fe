@@ -6,6 +6,8 @@ import ProductCard from 'components/organisms/ProductCard';
 import Layout from '../LayoutStyle';
 import getProductList, {
     GetProductListReturnedData,
+    OptionType,
+    OrderType,
     Product,
 } from 'services/products/getProductList';
 import ClientComponentContaier from 'components/ClientComponentContaier';
@@ -26,8 +28,8 @@ const HomePageContent = ({
 }) => {
     const [input, setInput] = useState('');
     const [listData, setListData] = useState(data);
-    const [option, setOption] = useState('id');
-    const [order, setOrder] = useState('desc');
+    const [option, setOption] = useState<OptionType>('id');
+    const [order, setOrder] = useState<OrderType>('desc');
 
     const onClickSearchIcon = async () => {
         try {
@@ -45,6 +47,8 @@ const HomePageContent = ({
         try {
             const data = await getProductList({
                 page,
+                option,
+                order,
             });
             setListData(data);
         } catch (e) {
