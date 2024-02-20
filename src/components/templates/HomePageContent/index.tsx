@@ -49,6 +49,7 @@ const HomePageContent = ({
                 page,
                 option,
                 order,
+                searchValue: input,
             });
             setListData(data);
         } catch (e) {
@@ -173,7 +174,7 @@ const HomePageContent = ({
                         </Box>
                     </Box>
                     <Pagination
-                        count={data.totalPage}
+                        count={listData.totalPage}
                         onChange={(e, page) => onChangePagenation(page)}
                     />
                 </Flex>

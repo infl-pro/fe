@@ -21,10 +21,12 @@ const PurchaseListContainer = () => {
     const [dataTrigger, setDataTrigger] = useState(false);
 
     useEffect(() => {
-        Axios.get('/orders').then(res => {
-            console.log(res);
-            setList(res.data.data);
-        });
+        Axios.get('/orders')
+            .then(res => {
+                console.log(res);
+                setList(res.data.data);
+            })
+            .catch(e => console.log(e));
     }, [dataTrigger]);
 
     const onClickOrderItem = async id => {
