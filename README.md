@@ -31,4 +31,5 @@ yarn dev
 - **React Hook Form**: React 기반의 폼 상태 및 유효성 검사를 쉽게 관리하는 훅
 - **React Quill**: Rich Text Editor를 사용할 수 있는 React 컴포넌트
 - **Redux Toolkit**: Redux 상태 관리 라이브러리를 쉽게 사용할 수 있도록 도와주는 툴킷
+- **storybook**: Storybook을 사용하여 프로젝트의 컴포넌트를 독립적으로 개발하고 테스트할 수 있음
 
