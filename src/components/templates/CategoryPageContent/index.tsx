@@ -80,6 +80,11 @@ const index = ({ searchCategory }) => {
                                 <Input
                                     value={input}
                                     onChange={e => setInput(e.target.value)}
+                                    onKeyDown={e => {
+                                        if (e.key === 'Enter') {
+                                            onClickSearchIcon();
+                                        }
+                                    }}
                                 />
                             </Box>
                             <Flex alignItems={'center'}>

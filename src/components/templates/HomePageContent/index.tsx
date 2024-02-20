@@ -110,7 +110,14 @@ const HomePageContent = ({
                                 <Box width={'290px'}>
                                     <Input
                                         value={input}
-                                        onChange={e => setInput(e.target.value)}
+                                        onChange={e => {
+                                            setInput(e.target.value);
+                                        }}
+                                        onKeyDown={e => {
+                                            if (e.key === 'Enter') {
+                                                onClickSearchIcon();
+                                            }
+                                        }}
                                     />
                                 </Box>
                                 <Flex alignItems={'center'}>
