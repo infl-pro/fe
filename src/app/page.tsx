@@ -1,4 +1,4 @@
-import type { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next';
+import type { NextPage } from 'next';
 import getProductList from 'services/products/getProductList';
 import HomePageContent from 'components/templates/HomePageContent';
 import { cookies } from 'next/headers';
@@ -8,14 +8,11 @@ const HomePage: NextPage = async () => {
 
     const isLogined = await getIsLogined();
 
-    // 컴포넌트에 데이터 넣어주기
     return <HomePageContent data={data} isLogined={isLogined} />;
 };
 
 async function getProducts() {
     const data = await getProductList();
-    // response.data.data 는 왜 undefined인지??
-    // axios로 revalidate 설정하는 법 ?
 
     return data;
 }
