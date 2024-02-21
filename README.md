@@ -1,5 +1,7 @@
 # SHAPP (쇼핑몰 웹사이트 프론트엔드)
 
+![스크린샷 2024-02-21 211123](https://github.com/infl-pro/fe/assets/105183531/aca92e18-bdee-499c-acd5-969ebc2c43a5)
+
 이 프로젝트는 SHAPP(쇼핑몰 웹사이트)의 프론트엔드 부분을 담당하는 프로젝트입니다.
 
 https://shapp.shop/
