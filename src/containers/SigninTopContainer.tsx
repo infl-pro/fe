@@ -47,7 +47,10 @@ const SigninTopContainer: NextPage = () => {
                         justifyContent="center"
                         alignItems="center"
                     >
-                        <Box marginBottom={2}>LOGO</Box>
+                        <Box marginBottom={2}>
+                            {' '}
+                            <img src="logo.png" alt="logo" height={44} />
+                        </Box>
                         <Box width="100%">
                             {/*
                             로그인폼 컨테이너

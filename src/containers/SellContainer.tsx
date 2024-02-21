@@ -52,7 +52,7 @@ const SellContainer = () => {
                             display={{ base: 'block', md: 'none' }}
                             marginBottom={2}
                         >
-                            LOGO
+                            <img src="logo.png" alt="logo" height={44} />
                         </Box>
                         <Box width="100%">
                             {/*

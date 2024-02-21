@@ -82,7 +82,9 @@ const Header = ({ isLogined }: HeaderProps) => {
                 <Nav as="nav" height="56px" alignItems="center">
                     <NavLink>
                         <Link href="/">
-                            <Anchor as="a">LOGO</Anchor>
+                            <Anchor as="a">
+                                <img src="/logo.png" alt="logo" height={29} />
+                            </Anchor>
                         </Link>
                     </NavLink>
                     <NavLink>

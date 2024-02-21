@@ -4,7 +4,6 @@ import React from 'react';
 import LayoutStyle from 'components/templates/LayoutStyle';
 import Flex from 'components/layout/Flex';
 import { Box } from '@mui/material';
-import SignupForm from 'components/organisms/SignupForm';
 import SignupFormContainer from 'containers/SignupFormContainer';
 import { useRouter } from 'next/navigation';
 
